@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+   
+  </PropertyGroup>
+
+  <ItemGroup>
+
+  <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+   
+    <Folder Include="Entities\DTO\" />
+    <Folder Include="Entities\Models\" />
+    <Folder Include="Entities\ViewModel\" />
+    <Folder Include="Interfaces\IRepositories\" />
+    <Folder Include="Interfaces\IBases\" />
+    <Folder Include="Interfaces\IServices\" />    
+    <Folder Include="Exceptions\" />   
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+</Project>
