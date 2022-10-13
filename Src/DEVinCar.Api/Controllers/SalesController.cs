@@ -13,9 +13,11 @@ namespace DEVinCar.Api.Controllers;
 public class SalesController : ControllerBase
 {
     private readonly ISaleService _saleService;
-    public SalesController(ISaleService saleService)
+    private readonly IDeliveryService _deliveryService;
+    public SalesController(ISaleService saleService, IDeliveryService deliveryService)
     {
         _saleService = saleService;
+        _deliveryService= deliveryService;
     }
 
     [HttpGet("{saleId}")]
@@ -44,43 +46,9 @@ public class SalesController : ControllerBase
     [HttpPost("{saleId}/deliver")]
     public ActionResult<DeliveryDTO> PostDeliver([FromRoute] int saleId, [FromBody] DeliveryDTO body)
     {
-        if (!body.AddressId.HasValue)
-        {
-            return BadRequest();
-        }
+      int deliverId =  _deliveryService.PostDeliveryDTO(saleId,body );
 
-        if (_context.Sales.Find(saleId) == null)
-        {
-            return NotFound();
-        }
-
-        if (_context.Sales.Find(body.AddressId) == null)
-        {
-            return NotFound();
-        }
-
-        var now = DateTime.Now.Date;
-        if (body.DeliveryForecast < now)
-        {
-            return BadRequest();
-        }
-
-        if (body.DeliveryForecast == null)
-        {
-            body.DeliveryForecast = DateTime.Now.AddDays(7);
-        }
-
-        var deliver = new Delivery
-        {
-            AddressId = (int)body.AddressId,
-            SaleId = saleId,
-            DeliveryForecast = (DateTime)body.DeliveryForecast
-        };
-
-        _context.Deliveries.Add(deliver);
-        _context.SaveChanges();
-
-        return Created("{saleId}/deliver", deliver.Id);
+        return Created("{saleId}/deliver", deliverId);
     }
 
     [HttpPatch("{saleId}/car/{carId}/amount/{amount}")]
