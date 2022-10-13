@@ -14,6 +14,7 @@ namespace DEVinCar.Domain.Interfaces.IServices
         public IList<Sale> GetReationBuyOnUser(int userid);
         public Sale PostSaleUserId( int userId, SaleDTO body);
         public Sale PostBuyUserId(int userId, BuyDTO body);
+        public SaleCar PostSale(SaleCarDTO body, int saleId);
 
         public List<Sale> GetByIdbuy(int userId);
         

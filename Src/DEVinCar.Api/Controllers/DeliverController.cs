@@ -1,6 +1,4 @@
-﻿
-using DEVinCar.Domain.Entities.Models;
-using DEVinCar.Domain.Interfaces.IRepositories;
+﻿using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,15 +16,10 @@ namespace DEVinCar.Api.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Delivery> Get(
-        [FromQuery] int? addressId,
-        [FromQuery] int? saleId)
+        public ActionResult<Delivery> Get([FromQuery] int? addressId,[FromQuery] int? saleId)
         {
-
             var query = _deliveryService.GetDelivery(addressId, saleId);
-
-            return Ok(query.ToList());
-       
+            return Ok(query.ToList());       
         }
     }
 }
