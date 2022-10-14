@@ -55,6 +55,98 @@ namespace DEVinCar.Infra.Data.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Addresses", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cep = "89260200",
+                            CityId = 1,
+                            Complement = "avenida dos javeiros",
+                            Number = 55,
+                            Street = "Bertha weege"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cep = "99260450",
+                            CityId = 2,
+                            Complement = "bóson de higgs",
+                            Number = 44,
+                            Street = "Macarena    "
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Cep = "88245640",
+                            CityId = 3,
+                            Complement = "rutherford bohr ",
+                            Number = 787,
+                            Street = "Mundial frei"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Cep = "79260500",
+                            CityId = 4,
+                            Complement = "paradoxo dos gemeos",
+                            Number = 554,
+                            Street = "Alvin Bross"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Cep = "87289890",
+                            CityId = 5,
+                            Complement = "paradoxo de bootstrap",
+                            Number = 578,
+                            Street = "Nickson nelma"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Cep = "49245500",
+                            CityId = 6,
+                            Complement = "gato de schrödinger",
+                            Number = 544,
+                            Street = "jk matilda"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Cep = "89567520",
+                            CityId = 7,
+                            Complement = "efeito fantasmagorico",
+                            Number = 33,
+                            Street = "horizons blue"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Cep = "84256500",
+                            CityId = 8,
+                            Complement = "max plank",
+                            Number = 323,
+                            Street = "apargatas"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Cep = "86260560",
+                            CityId = 9,
+                            Complement = "stephen hawking",
+                            Number = 678,
+                            Street = "medianeira"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Cep = "89960450",
+                            CityId = 10,
+                            Complement = "de volta para o futuro",
+                            Number = 123,
+                            Street = "bartinduum"
+                        });
                 });
 
             modelBuilder.Entity("DEVinCar.Domain.Entities.Models.Car", b =>
@@ -162,6 +254,68 @@ namespace DEVinCar.Infra.Data.Migrations
                     b.HasIndex("StateId");
 
                     b.ToTable("Cities", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Jaragua do sul",
+                            StateId = 24
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Joinville",
+                            StateId = 24
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Florianopolis",
+                            StateId = 24
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Lages",
+                            StateId = 24
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "São Paulo",
+                            StateId = 25
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Maringá",
+                            StateId = 16
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Curitiba",
+                            StateId = 16
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Manaus",
+                            StateId = 4
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Porto Alegre",
+                            StateId = 21
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Charqueadas",
+                            StateId = 21
+                        });
                 });
 
             modelBuilder.Entity("DEVinCar.Domain.Entities.Models.Delivery", b =>
@@ -172,7 +326,7 @@ namespace DEVinCar.Infra.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeliveryForecast")
@@ -188,6 +342,78 @@ namespace DEVinCar.Infra.Data.Migrations
                     b.HasIndex("SaleId");
 
                     b.ToTable("Deliveries", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AddressId = 1,
+                            DeliveryForecast = new DateTime(2000, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 10
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AddressId = 2,
+                            DeliveryForecast = new DateTime(1999, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 9
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AddressId = 3,
+                            DeliveryForecast = new DateTime(2005, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 8
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AddressId = 4,
+                            DeliveryForecast = new DateTime(2001, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 7
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AddressId = 5,
+                            DeliveryForecast = new DateTime(2011, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 6
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AddressId = 6,
+                            DeliveryForecast = new DateTime(2008, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 5
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AddressId = 7,
+                            DeliveryForecast = new DateTime(2005, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AddressId = 8,
+                            DeliveryForecast = new DateTime(2002, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AddressId = 9,
+                            DeliveryForecast = new DateTime(2000, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 2
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AddressId = 10,
+                            DeliveryForecast = new DateTime(2011, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SaleId = 1
+                        });
                 });
 
             modelBuilder.Entity("DEVinCar.Domain.Entities.Models.Sale", b =>
@@ -214,6 +440,78 @@ namespace DEVinCar.Infra.Data.Migrations
                     b.HasIndex("SellerId");
 
                     b.ToTable("Sales", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BuyerId = 1,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BuyerId = 3,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 4
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BuyerId = 5,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 6
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BuyerId = 7,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 8
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BuyerId = 9,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 10
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BuyerId = 3,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BuyerId = 5,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 4
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BuyerId = 7,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 6
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BuyerId = 9,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 8
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BuyerId = 1,
+                            SaleDate = new DateTime(2021, 12, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            SellerId = 10
+                        });
                 });
 
             modelBuilder.Entity("DEVinCar.Domain.Entities.Models.SaleCar", b =>
@@ -237,6 +535,88 @@ namespace DEVinCar.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SaleCars", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 1,
+                            CarId = 1,
+                            SaleId = 1,
+                            UnitPrice = 60000m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 1,
+                            CarId = 2,
+                            SaleId = 2,
+                            UnitPrice = 20000m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 1,
+                            CarId = 3,
+                            SaleId = 3,
+                            UnitPrice = 30000m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Amount = 3,
+                            CarId = 1,
+                            SaleId = 4,
+                            UnitPrice = 60000m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Amount = 1,
+                            CarId = 4,
+                            SaleId = 5,
+                            UnitPrice = 20000m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Amount = 1,
+                            CarId = 7,
+                            SaleId = 6,
+                            UnitPrice = 50000m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Amount = 2,
+                            CarId = 9,
+                            SaleId = 7,
+                            UnitPrice = 70000m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Amount = 1,
+                            CarId = 6,
+                            SaleId = 8,
+                            UnitPrice = 10000m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Amount = 2,
+                            CarId = 3,
+                            SaleId = 9,
+                            UnitPrice = 30000m
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Amount = 1,
+                            CarId = 9,
+                            SaleId = 10,
+                            UnitPrice = 70000m
+                        });
                 });
 
             modelBuilder.Entity("DEVinCar.Domain.Entities.Models.State", b =>
@@ -466,8 +846,8 @@ namespace DEVinCar.Infra.Data.Migrations
                             BirthDate = new DateTime(2000, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "jose@email.com",
                             Name = "Jose",
-                            Password = "123456opp78",
-                            Permission = 0
+                            Password = "123456opp78dfg",
+                            Permission = 2
                         },
                         new
                         {
@@ -475,25 +855,79 @@ namespace DEVinCar.Infra.Data.Migrations
                             BirthDate = new DateTime(1999, 5, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "andrea@email.com",
                             Name = "Andrea",
-                            Password = "987dasd654321",
+                            Password = "987dasd654321d",
                             Permission = 0
                         },
                         new
                         {
                             Id = 3,
-                            BirthDate = new DateTime(2005, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(2005, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "adao@email.com",
                             Name = "Adao",
-                            Password = "2589asd",
-                            Permission = 0
+                            Password = "2589as89898ddf",
+                            Permission = 1
                         },
                         new
                         {
                             Id = 4,
-                            BirthDate = new DateTime(2001, 6, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "monique@email.com",
-                            Name = "Monique",
-                            Password = "asd45uio",
+                            BirthDate = new DateTime(2001, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "andre@email.com",
+                            Name = "andre",
+                            Password = "asasdd45uiodfg",
+                            Permission = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BirthDate = new DateTime(2011, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Marcos@email.com",
+                            Name = "Marcos",
+                            Password = "asd45uidfg121o",
+                            Permission = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BirthDate = new DateTime(2008, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Manuela@email.com",
+                            Name = "Manuela",
+                            Password = "asd45dfgu789io",
+                            Permission = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BirthDate = new DateTime(2005, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Vania@email.com",
+                            Name = "Vania",
+                            Password = "asd454563213ui",
+                            Permission = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BirthDate = new DateTime(2002, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "carla@email.com",
+                            Name = "carla",
+                            Password = "asdfgd45ui121o",
+                            Permission = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BirthDate = new DateTime(2000, 12, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Malena@email.com",
+                            Name = "Malena",
+                            Password = "asd45ui898odfg",
+                            Permission = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BirthDate = new DateTime(2011, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Marize@email.com",
+                            Name = "Marize",
+                            Password = "asd45uidfgdfgo",
                             Permission = 0
                         });
                 });
@@ -524,7 +958,9 @@ namespace DEVinCar.Infra.Data.Migrations
                 {
                     b.HasOne("DEVinCar.Domain.Entities.Models.Address", "Address")
                         .WithMany("Deliveries")
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("DEVinCar.Domain.Entities.Models.Sale", "Sale")
                         .WithMany("Deliveries")
