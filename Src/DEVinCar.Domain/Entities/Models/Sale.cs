@@ -22,6 +22,14 @@ namespace DEVinCar.Domain.Entities.Models
             SaleDate = saleDTO.SaleDate;
         }
 
+        public Sale(int id, DateTime saleDate, int buyerId, int sellerId)
+        {
+            Id= id;
+            SaleDate= saleDate;
+            BuyerId = buyerId;
+            SellerId = sellerId;
+        }
+
         public void Update(SaleDTO saleDTO)
         {
             

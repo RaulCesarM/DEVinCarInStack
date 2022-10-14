@@ -23,6 +23,19 @@ namespace DEVinCar.Infra.Data.Mapping
                 .WithMany(s => s.Cities)
                 .HasForeignKey(city => city.StateId)
                 .IsRequired();
+
+                entity.HasData(new[]{
+                    new City(1, "Jaragua do sul", 24),
+                    new City(2, "Joinville",      24),
+                    new City(3, "Florianopolis",  24),
+                    new City(4, "Lages",          24),
+                    new City(5, "São Paulo",      25),
+                    new City(6, "Maringá",        16),
+                    new City(7, "Curitiba",       16),
+                    new City(8, "Manaus",          4),
+                    new City(9, "Porto Alegre",   21),
+                    new City(10,"Charqueadas",    21),
+                });
         }
     }
 }

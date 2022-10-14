@@ -5,6 +5,8 @@ namespace DEVinCar.Domain.Entities.Models
 {
     public class Address
     {
+       
+
         public int Id { get; set; }
         public int CityId { get; set; }
         public string Street { get; set; }
@@ -26,6 +28,17 @@ namespace DEVinCar.Domain.Entities.Models
             Number = addressDTO.Number;
             Complement = addressDTO.Complement;        
        }
+
+        public Address(int id, int cityId, string street, string cep, int number, string complement)
+        {
+            Id = id;
+            CityId = cityId;
+            Street = street;
+            Cep = cep;
+            Number = number;
+            Complement = complement;
+        }
+
         public void Update(AddressDTO addressDTO)
         {
             Street = addressDTO.Street;

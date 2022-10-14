@@ -21,6 +21,15 @@ namespace DEVinCar.Domain.Entities.Models
             DeliveryForecast = deliveryDTO.DeliveryForecast;
         }
 
+        public Delivery(int id, DateTime dateTime, int addressId, int saleId)
+        {
+            Id= id;
+            DeliveryForecast = dateTime;
+            AddressId = addressId;
+            SaleId = saleId;
+
+        }
+
         public void Update(DeliveryDTO deliveryDTO)
         {
             Id = deliveryDTO.Id;

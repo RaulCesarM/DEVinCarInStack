@@ -6,12 +6,16 @@ namespace DEVinCar.Domain.Entities.Models
 {
     public class City
     {
+      
+
         public int Id { get; set; }
         public int StateId { get; set; }
         public string Name { get; set; }
         public virtual State State { get; set; }
 
         public virtual List<Address> Addresses { get; set; }
+       
+
         public City()
         {
             
@@ -23,6 +27,15 @@ namespace DEVinCar.Domain.Entities.Models
             StateId = cityDTO.StateId;
             Name= cityDTO.Name;
         }
+
+        public City(int id, string name, int stateId)
+        {
+            Id = id;
+            Name = name;
+            StateId = stateId;
+           
+        }
+
         public void Update(CityDTO cityDTO)
         {
 
