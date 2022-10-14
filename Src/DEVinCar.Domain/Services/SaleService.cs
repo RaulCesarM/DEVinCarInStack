@@ -201,6 +201,57 @@ namespace DEVinCar.Domain.Services
             throw new NotFoundException($"The Sale not exists.");
         }
 
+        public SaleCar PatchAmount(int saleId, int carId, int amount)
+        {
+            var sale = _saleRepository.GetById(saleId);
+            var saleCar = _saleCarRepository.GetById(carId);
 
+            if (sale == null || saleCar == null)
+            {
+                throw new NotFoundException($"The Car-Sale id or Car id not exists.");
+            }
+
+            if (amount <= 0)
+            {
+                throw new BadRequestExceptions($"Not valid Amount");
+            }
+
+            try
+            {
+
+                saleCar.Amount = amount;
+                _saleCarRepository.Update(saleCar);
+                return saleCar;
+            }
+            catch (Exception)
+            {
+                throw new BadRequestExceptions($"Could not update");
+            }
+        }
+
+        public SaleCar PatchtUnitPrice(int saleId, int carId, decimal unitPrice)
+        {
+            var sale = _saleRepository.GetById(saleId);
+            var saleCar = _saleCarRepository.GetById(carId);
+
+            if (sale == null || saleCar == null)
+            {
+                throw new NotFoundException($"The Car-Sale id or Car id not exists.");
+            }
+            if (unitPrice <= 0)
+            {
+                throw new BadRequestExceptions($"Not valid unitPrice");
+            }
+            try
+            {
+                saleCar.UnitPrice = unitPrice;
+                _saleCarRepository.Update(saleCar);
+                return saleCar;
+            }
+            catch (Exception)
+            {
+                throw new BadRequestExceptions($"Could not update");
+            }
+        }
     }
 }

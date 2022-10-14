@@ -10,12 +10,12 @@ namespace DEVinCar.Domain.Interfaces.IServices
     public interface ISaleService : IBaseService<SaleDTO, int>
     {
         public List<SaleViewModel> GetViewItens(int id);
-
         public IList<Sale> GetReationBuyOnUser(int userid);
         public Sale PostSaleUserId( int userId, SaleDTO body);
         public Sale PostBuyUserId(int userId, BuyDTO body);
         public SaleCar PostSale(SaleCarDTO body, int saleId);
-
+        public SaleCar PatchAmount(int saleId, int carId, int amount);
+        public SaleCar PatchtUnitPrice(int saleId, int carId, decimal unitPrice);
         public List<Sale> GetByIdbuy(int userId);
         
     }

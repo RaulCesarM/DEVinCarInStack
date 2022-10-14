@@ -17,7 +17,7 @@ public class SalesController : ControllerBase
     public SalesController(ISaleService saleService, IDeliveryService deliveryService)
     {
         _saleService = saleService;
-        _deliveryService= deliveryService;
+        _deliveryService = deliveryService;
     }
 
     [HttpGet("{saleId}")]
@@ -37,7 +37,7 @@ public class SalesController : ControllerBase
             var sale = _saleService.PostSale(body, saleId);
             return Created("api/sales/{saleId}/item", sale.CarId);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             return NotFound(e);
         }
@@ -46,34 +46,17 @@ public class SalesController : ControllerBase
     [HttpPost("{saleId}/deliver")]
     public ActionResult<DeliveryDTO> PostDeliver([FromRoute] int saleId, [FromBody] DeliveryDTO body)
     {
-      int deliverId =  _deliveryService.PostDeliveryDTO(saleId,body );
-
+        int deliverId = _deliveryService.PostDeliveryDTO(saleId, body);
         return Created("{saleId}/deliver", deliverId);
     }
 
     [HttpPatch("{saleId}/car/{carId}/amount/{amount}")]
-    public ActionResult<SaleCar> Patch([FromRoute] int saleId, [FromRoute] int carId, [FromRoute] int amount)
+    public ActionResult<SaleCar> PatchAmount([FromRoute] int saleId, [FromRoute] int carId, [FromRoute] int amount)
     {
-        var carSaleId = _context.Sales.Find(saleId);
-        var carID = _context.SaleCars.Find(carId);
-
-        if (carSaleId == null || carID == null)
-        {
-            return NotFound();
-        }
-
-        if (amount <= 0)
-        {
-            return BadRequest();
-        }
-
         try
         {
-            carID.Amount = amount;
-            carID.Amount = amount;
-            _context.SaleCars.Update(carID);
-            _context.SaveChanges();
-            return NoContent();
+            _saleService.PatchAmount(saleId, carId, amount);
+            return Ok();
         }
         catch (Exception)
         {
@@ -84,29 +67,14 @@ public class SalesController : ControllerBase
     [HttpPatch("{saleId}/car/{carId}/price/{unitPrice}")]
     public ActionResult<SaleCar> Patch([FromRoute] int saleId, [FromRoute] int carId, [FromRoute] decimal unitPrice)
     {
-        var carSaleId = _context.Sales.Find(saleId);
-        var carID = _context.SaleCars.Find(carId);
-
-        if (carSaleId == null || carID == null)
-        {
-            return NotFound();
-        }
-
-        if (carID.UnitPrice <= 0)
-        {
-            return BadRequest();
-        }
-
         try
         {
-            carID.UnitPrice = unitPrice;
-            _context.SaleCars.Update(carID);
-            _context.SaveChanges();
-            return NoContent();
+            _saleService.PatchtUnitPrice(saleId, carId, unitPrice);
+            return Ok();
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return BadRequest(ex);
+            return BadRequest();
         }
 
     }
