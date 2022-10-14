@@ -48,9 +48,9 @@ namespace DEVinCar.Domain.Entities.Models
             Password = userDTO.Password;
             BirthDate = userDTO.BirthDate;
         }
-        public User(int v, string email, string password, string name, DateTime birthDate, Permission permission)
+        public User(int id, string email, string password, string name, DateTime birthDate, Permission permission)
         {
-            
+            Id = id;
             Email = email;
             Password = password;
             Name = name;
