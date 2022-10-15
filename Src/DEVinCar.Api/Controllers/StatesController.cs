@@ -6,7 +6,7 @@ using DEVinCar.Domain.Entities.ViewModels;
 namespace DEVinCar.Api.Controllers;
 
 [ApiController]
-[Route("api/state")]
+[Route("state")]
 public class StatesController : ControllerBase
 {
     private readonly IStateService _stateService;

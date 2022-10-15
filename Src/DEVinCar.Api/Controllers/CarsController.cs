@@ -1,12 +1,14 @@
 using DEVinCar.Domain.Entities.DTOs;
 using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DEVinCar.Api.Controllers;
 
 [ApiController]
-[Route("api/car")]
+[Route("car")]
+
 public class CarController : ControllerBase
 {
     private readonly ICarService _carService;
@@ -17,6 +19,7 @@ public class CarController : ControllerBase
     }
 
     [HttpGet("{carId}")]
+    [AllowAnonymous]
     public ActionResult<Car> GetById([FromRoute] int carId)
     {
         var car = _carService.GetCarById(carId);
@@ -25,6 +28,8 @@ public class CarController : ControllerBase
     }
 
     [HttpGet]
+    [AllowAnonymous]
+    
     public ActionResult<List<Car>> Get([FromQuery] string name, [FromQuery] decimal? priceMin,[FromQuery] decimal? priceMax)
     {
         var car= _carService.GetGeralViewCar(name,priceMin,priceMax );
@@ -32,6 +37,7 @@ public class CarController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public ActionResult<Car> Post([FromBody] CarDTO body)
     {      
         var car = new CarDTO
@@ -44,6 +50,7 @@ public class CarController : ControllerBase
     }
 
     [HttpDelete("{carId}")]
+    [AllowAnonymous]
     public ActionResult Delete([FromRoute] int carId)
     {              
         _carService.Remove(carId);
@@ -55,6 +62,7 @@ public class CarController : ControllerBase
     }
 
     [HttpPut("{carId}")]
+    [AllowAnonymous]
     public ActionResult<Car> Put([FromBody] CarDTO carDto, [FromRoute] int carId)
     {
         var car = _carService.GetCarById(carId);

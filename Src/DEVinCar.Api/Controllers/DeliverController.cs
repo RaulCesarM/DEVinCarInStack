@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DEVinCar.Api.Controllers
 {
     [ApiController]
-    [Route("api/deliver")]
+    [Route("deliver")]
     public class DeliverController : ControllerBase
     {
         private readonly IDeliveryService _deliveryService;

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DEVinCar.Api.Controllers;
 
 [ApiController]
-[Route("api/sales")]
+[Route("sales")]
 public class SalesController : ControllerBase
 {
     private readonly ISaleService _saleService;
