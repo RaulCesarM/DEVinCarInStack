@@ -108,6 +108,12 @@ namespace DEVinCar.Domain.Services
             return query.ToList();
         }
 
-      
+        public  User Update(UserDTO entity)
+        {
+            var UserUpdate = _userRepository.GetUserName(entity);
+            UserUpdate.Update(entity);
+            _userRepository.Update(UserUpdate);
+            return UserUpdate;
+        }
     }
 }

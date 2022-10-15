@@ -2,6 +2,7 @@
 using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace DEVinCar.Api.Controllers;
 
@@ -12,11 +13,13 @@ public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
     private readonly ISaleService _saleService;
+    private readonly IMemoryCache _cache;
 
-    public UserController(IUserService userService, ISaleService saleService)
+    public UserController(IUserService userService, ISaleService saleService, IMemoryCache cache)
     {
         _userService = userService;
         _saleService = saleService;
+        _cache = cache;
     }
 
     [HttpGet]
@@ -29,9 +32,14 @@ public class UserController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<User> GetById([FromRoute] int id)
     {
-        var user = _userService.GetUserById(id);
+        User user;
+        if(!_cache.TryGetValue<User>($"user: {id}", out user)){
+         user = _userService.GetUserById(id);
+         _cache.Set<User>($"user: {id}", user, new TimeSpan(0,0,40));
         if (user == null) return NotFound();
+        }
         return Ok(user);
+        
     }
 
     [HttpGet("{userId}/buy")]
@@ -57,6 +65,15 @@ public class UserController : ControllerBase
     {
         var newUser = _userService.GetUserByDTO(userDto);
         return Created("api/users", newUser);
+    }
+
+    [HttpPut ("{userId}/user") ]
+    public ActionResult<User> Update([FromBody] UserDTO userDto,[FromRoute] int userId )
+    {
+        _cache.Remove($"user:{userId}");
+        userDto.Id = userId;
+        var user = _userService.Update(userDto);
+        return Created("api/users", user);
     }
 
     [HttpPost("{userId}/sales")]

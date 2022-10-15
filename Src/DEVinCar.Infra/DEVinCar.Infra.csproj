@@ -1,21 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    
+    <ImplicitUsings>enable</ImplicitUsings>    
   </PropertyGroup>
-
   <ItemGroup>
     <Folder Include="Data\Context\" />
     <Folder Include="Data\Mapping\" />
     <Folder Include="Data\Repository\" />
   </ItemGroup>
-
  <ItemGroup>
-    <ProjectReference Include="..\DEVinCar.Domain\DEVinCar.Domain.csproj" /> 
-    
-        
+    <ProjectReference Include="..\DEVinCar.Domain\DEVinCar.Domain.csproj" />       
   </ItemGroup>
 
  <ItemGroup>

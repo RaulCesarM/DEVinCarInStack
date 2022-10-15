@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-RepositoryIOC.RegisterServices(builder.Services);      
+RepositoryIOC.RegisterServices(builder.Services);
+
+builder.Services.AddMemoryCache();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -38,8 +40,6 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = false
     };
 });
-
-
 
 var app = builder.Build();
 

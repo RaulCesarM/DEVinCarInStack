@@ -18,31 +18,24 @@ namespace DEVinCar.Domain.Entities.Models
 
         public User()
         {
-
         }
 
         public User(UserDTO userDTO)
-        {
-        
+        {        
             Name = userDTO.Name;
             Email = userDTO.Email;
             Password = userDTO.Password;
             BirthDate = userDTO.BirthDate;
             Permission = userDTO.Permission;
-
         }
         public User(LoginDTO LoginDTO)
-        {
-          
+        {          
             Email = LoginDTO.Email;
-            Password = LoginDTO.Password;
-            
-           
+            Password = LoginDTO.Password;   
         }
 
         public void Update(UserDTO userDTO)
-        {
-          
+        {          
             Name = userDTO.Name;
             Email = userDTO.Email;
             Password = userDTO.Password;
