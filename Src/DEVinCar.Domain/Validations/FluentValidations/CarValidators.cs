@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace DEVinCar.Domain.Validations.FluentValidations
 {
-    public class CarValidations : AbstractValidator<Car>
+    public class CarValidators : AbstractValidator<Car>
     {
-        public CarValidations()
+        public CarValidators()
         {
             RuleFor(x => x.Name)
             .NotEmpty().WithMessage("The name is required")

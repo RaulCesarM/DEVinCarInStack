@@ -6,11 +6,21 @@ using Microsoft.IdentityModel.Tokens;
 using DEVinCar.Domain.Validations.Security;
 using Microsoft.AspNetCore.Mvc.Formatters;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+               
 RepositoryIOC.RegisterServices(builder.Services);
+ValidatorsIOC.RegisterServices(builder.Services);
+
 
 builder.Services.AddMemoryCache();
+
+
+
+
+
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
