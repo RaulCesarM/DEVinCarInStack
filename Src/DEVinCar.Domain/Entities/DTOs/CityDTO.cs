@@ -15,7 +15,7 @@ namespace DEVinCar.Domain.Entities.DTOs
         {   Id = city.Id;
             Name = city.Name;
              StateId = city.StateId;
-        }       
-       
+        }    
+          
     }
 }
