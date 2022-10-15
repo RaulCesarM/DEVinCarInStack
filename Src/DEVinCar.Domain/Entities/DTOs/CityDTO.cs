@@ -5,17 +5,11 @@ namespace DEVinCar.Domain.Entities.DTOs
 {
      public class CityDTO
     {
-        public int Id { get; set; }
-
-        [Required(ErrorMessage = "The name is required")]
-        [MaxLength(255)]  
+        public int Id { get; set; }     
         public string Name { get; set; }
-
         public int StateId { get; set; }
-
         public CityDTO()
-        {
-            
+        {            
         }
         public CityDTO(City city)
         {   Id = city.Id;
