@@ -1,5 +1,3 @@
-
-
 using DEVinCar.Domain.Entities.Models;
 using FluentValidation;
 

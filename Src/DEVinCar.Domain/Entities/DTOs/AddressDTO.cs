@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using DEVinCar.Domain.Entities.Models;
 
 namespace DEVinCar.Domain.Entities.DTOs

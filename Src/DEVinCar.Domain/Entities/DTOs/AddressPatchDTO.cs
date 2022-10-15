@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace DEVinCar.Domain.Entities.DTOs
 {
     public class AddressPatchDTO
