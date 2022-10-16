@@ -16,7 +16,7 @@ namespace DEVinCar.Test
             builder.ConfigureServices(services =>{
                 services.RemoveAll(typeof(DbContextOptions<DevInCarDbContext>));
                 services.AddDbContext<DevInCarDbContext>(options =>
-                options.UseInMemoryDatabase("BD_DEVINCAR", root));
+                options.UseInMemoryDatabase("INCAR", root));
             });
             return base.CreateHost(builder);
         }
