@@ -72,5 +72,22 @@ namespace DEVinCar.Test
 
         }
 
+
+        [Fact]
+        public async Task Padrao_de_teste_estudo()
+        {
+            // arrange
+
+
+           //act 
+
+
+           //asserts
+
+
+
+        }
+
+
     }
 }
