@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+  <InternalsVisibleTo Include="DEVinCar.Test"/>  
+  </ItemGroup>
+
+  <ItemGroup>
   <PackageReference Include="FluentValidation" Version="11.2.2" />
   <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
   <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
