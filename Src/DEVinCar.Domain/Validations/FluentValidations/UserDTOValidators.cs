@@ -21,10 +21,7 @@ namespace DEVinCar.Domain.Validations.FluentValidations
              RuleFor(x => x.BirthDate)
                 .NotEmpty().WithMessage("Enter BirthDate!")               
                 .Must(CheckBirthDate).WithMessage("the user must be of legal age !")
-                .Must(ValidDate).WithMessage("Incorect Format BirthDate!"); 
-
-            
-                
+                .Must(ValidDate).WithMessage("Incorect Format BirthDate!");                
                 
 
                 

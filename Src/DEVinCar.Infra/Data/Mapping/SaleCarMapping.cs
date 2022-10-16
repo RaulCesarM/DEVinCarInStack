@@ -48,10 +48,6 @@ namespace DEVinCar.Infra.Data.Mapping
                 new SaleCar(9,   30000M, 2,3,9 ),
                 new SaleCar(10,  70000M, 1,9,10 ),
 
-
-
-
-
             });
         }
     }
