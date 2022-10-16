@@ -12,7 +12,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(config =>{
-                config.ReturnHttpNotAcceptable = false;
+                config.ReturnHttpNotAcceptable = true;
                 config.OutputFormatters.Add(new XmlSerializerOutputFormatter());
                 config.InputFormatters.Add(new XmlSerializerInputFormatter(config));
 });

@@ -1,5 +1,7 @@
 ﻿using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Interfaces.IServices;
+using DEVinCar.Domain.Validations.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -16,6 +18,7 @@ namespace DEVinCar.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult<Delivery> Get([FromQuery] int? addressId,[FromQuery] int? saleId)
         {
             var query = _deliveryService.GetDelivery(addressId, saleId);

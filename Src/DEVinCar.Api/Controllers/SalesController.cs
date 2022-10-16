@@ -1,7 +1,9 @@
 ﻿using DEVinCar.Domain.Entities.DTOs;
+using DEVinCar.Domain.Entities.Enuns;
 using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Entities.ViewModels;
 using DEVinCar.Domain.Interfaces.IServices;
+using DEVinCar.Domain.Validations.Security;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -21,6 +23,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpGet("{saleId}")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<SaleViewModel> GetItensSale([FromRoute] int saleId)
     {
         var sales = _saleService.GetViewItens(saleId).ToList().FirstOrDefault();
@@ -30,6 +33,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpPost("{saleId}/item")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<SaleCar> PostSale([FromBody] SaleCarDTO body, [FromRoute] int saleId)
     {
         try
@@ -44,6 +48,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpPost("{saleId}/deliver")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<DeliveryDTO> PostDeliver([FromRoute] int saleId, [FromBody] DeliveryDTO body)
     {
         int deliverId = _deliveryService.PostDeliveryDTO(saleId, body);
@@ -65,6 +70,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpPatch("{saleId}/car/{carId}/price/{unitPrice}")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<SaleCar> Patch([FromRoute] int saleId, [FromRoute] int carId, [FromRoute] decimal unitPrice)
     {
         try

@@ -41,7 +41,7 @@ public class CarController : ControllerBase
     }
 
     [HttpPost]
-    [AllowAnonymous]
+    [PermissaoAuthorize(Permission.Gerente)]
     public ActionResult<Car> Post([FromBody] CarDTO body)
     {
 
@@ -62,7 +62,7 @@ public class CarController : ControllerBase
     }
 
     [HttpDelete("{carId}")]
-    [AllowAnonymous]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult Delete([FromRoute] int carId)
     {              
         _carService.Remove(carId);
@@ -74,7 +74,7 @@ public class CarController : ControllerBase
     }
 
     [HttpPut("{carId}")]
-    [AllowAnonymous]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Car> Put([FromBody] CarDTO carDto, [FromRoute] int carId)
     {
         var car = _carService.GetCarById(carId);

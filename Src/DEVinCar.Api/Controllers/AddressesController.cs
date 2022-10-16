@@ -2,7 +2,7 @@
 using DEVinCar.Domain.Interfaces.IServices;
 using DEVinCar.Domain.Entities.ViewModels;
 using DEVinCar.Domain.Entities.DTOs;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace DEVinCar.Api.Controllers;
 
@@ -20,6 +20,7 @@ public class AddressesController : ControllerBase
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public ActionResult<List<AddressViewModel>> Get([FromQuery] int? cityId,[FromQuery] int? stateId,[FromQuery] string street,[FromQuery] string cep)                                                 
     {       
         var query = _serviceAddress.GetGeralViewAddress(cityId, stateId, street, cep);
@@ -32,6 +33,7 @@ public class AddressesController : ControllerBase
     }
 
     [HttpPatch("{addressId}")]
+    [AllowAnonymous]
     public ActionResult<AddressViewModel> Patch([FromRoute] int addressId, [FromBody] AddressPatchDTO addressPatchDTO)
     {
         AddressDTO address = _serviceAddress.GetById(addressId);
@@ -42,6 +44,7 @@ public class AddressesController : ControllerBase
 
 
     [HttpDelete("{addressId}")]
+    [AllowAnonymous]
     public IActionResult Delete([FromRoute] int addressId)
     {
         try{

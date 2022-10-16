@@ -1,6 +1,8 @@
 ﻿using DEVinCar.Domain.Entities.DTOs;
+using DEVinCar.Domain.Entities.Enuns;
 using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Interfaces.IServices;
+using DEVinCar.Domain.Validations.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -26,6 +28,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<List<User>> Get([FromQuery] string Name, [FromQuery] DateTime? birthDateMax, [FromQuery] DateTime? birthDateMin)
     {
         var query = _userService.GetQueriableUser(Name, birthDateMax, birthDateMin);
@@ -33,6 +36,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<User> GetById([FromRoute] int id)
     {
         User user;
@@ -46,6 +50,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{userId}/buy")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Sale> GetByIdbuy([FromRoute] int userId)
     {
         var sales = _saleService.GetReationBuyOnUser(userId);
@@ -57,6 +62,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{userId}/sales")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Sale> GetSalesBySellerId([FromRoute] int userId)
     {
         var sales = _saleService.GetReationBuyOnUser(userId);
@@ -64,6 +70,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<User> Post([FromBody] UserDTO userDto)
     {
         var newUser = _userService.GetUserByDTO(userDto);
@@ -71,6 +78,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut ("{userId}/user") ]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<User> Update([FromBody] UserDTO userDto,[FromRoute] int userId )
     {
         _cache.Remove($"user:{userId}");
@@ -81,6 +89,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("{userId}/sales")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Sale> PostSaleUserId([FromRoute] int userId, [FromBody] SaleDTO body)
     {
         var sale = _saleService.PostSaleUserId(userId, body);
@@ -88,6 +97,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("{userId}/buy")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Sale> PostBuyUserId([FromRoute] int userId, [FromBody] BuyDTO body)
     {
         var buy = _saleService.PostBuyUserId(userId, body);
@@ -96,6 +106,7 @@ public class UserController : ControllerBase
 
 
     [HttpDelete("{userId}")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult Delete([FromRoute] int userId)
     {
         _userService.Remove(userId);

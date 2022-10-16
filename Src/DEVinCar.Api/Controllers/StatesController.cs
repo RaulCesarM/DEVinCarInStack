@@ -2,6 +2,8 @@
 using DEVinCar.Domain.Interfaces.IServices;
 using DEVinCar.Domain.Entities.DTOs;
 using DEVinCar.Domain.Entities.ViewModels;
+using DEVinCar.Domain.Validations.Security;
+using DEVinCar.Domain.Entities.Enuns;
 
 namespace DEVinCar.Api.Controllers;
 
@@ -19,6 +21,7 @@ public class StatesController : ControllerBase
     }
 
     [HttpPost("{stateId}/city")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<int> PostCity([FromRoute] int stateId, [FromBody] CityDTO cityDTO)
     {
         var Id = _stateService.PostCity(stateId, cityDTO);
@@ -28,6 +31,7 @@ public class StatesController : ControllerBase
 
 
     [HttpPost("{stateId}/city/{cityId}/address")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<int> PostAdress([FromRoute] int stateId, [FromRoute] int cityId, [FromBody] AddressDTO body)
     {
         var address = _addressService.PostAdress(stateId, cityId, body);
@@ -37,6 +41,7 @@ public class StatesController : ControllerBase
 
 
     [HttpGet("{stateId}/city/{cityId}")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<GetCityByIdViewModel> GetCityById([FromRoute] int stateId, [FromRoute] int cityId)
     {
         var CityById = _addressService.GetCityById(stateId, cityId);
@@ -44,6 +49,7 @@ public class StatesController : ControllerBase
     }
 
     [HttpGet("{stateId}")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<GetStateByIdViewModel> GetStateById([FromRoute] int stateId)
     {
         var filterState = _stateService.GetById(stateId);
@@ -52,6 +58,7 @@ public class StatesController : ControllerBase
     }
 
     [HttpGet]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<List<GetStateViewModel>> Get([FromQuery] string name)
     {
         try
@@ -66,6 +73,7 @@ public class StatesController : ControllerBase
     }
 
     [HttpGet("{stateId}/city")]
+    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<GetCityByIdViewModel> GetCityByStateId([FromRoute] int stateId, [FromQuery] string name)
     {
         var queryResponse = _addressService.GetCityByStateId(stateId, name);

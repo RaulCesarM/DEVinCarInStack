@@ -26,8 +26,7 @@ namespace DEVinCar.Test
             var result = await client.GetAsync(url);
             var users = await client.GetFromJsonAsync<List<User>>("/user");
 
-            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            Assert.NotNull(users);
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);          
             Assert.True(users.Count > 12);
 
         }
@@ -39,12 +38,12 @@ namespace DEVinCar.Test
             await using var application = new UserApiAppTest();
 
             await UserApiTestMockData.CreateUser(application, true);
-            var url = "/user";
+            var url = "https://localhost:7019/user/dfsfsdfsdfsdfdsfsdfsdf";
 
             var client = application.CreateClient();
 
             var result = await client.GetAsync(url);
-            var users = await client.GetFromJsonAsync<User>("/user/dfsfsdfsdfsdfdsfsdfsdf");
+            var users = await client.GetFromJsonAsync<User>("/user");
 
             
             Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
