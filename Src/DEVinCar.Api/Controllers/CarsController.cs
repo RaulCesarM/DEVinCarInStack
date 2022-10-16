@@ -3,33 +3,37 @@ using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Interfaces.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using DEVinCar.Domain.Entities.Enuns;
+using DEVinCar.Domain.Validations.Security;
 
 namespace DEVinCar.Api.Controllers;
 
 [ApiController]
-[Route("car")]
+[Route("api/car")]
+[Authorize]
 
 public class CarController : ControllerBase
 {
+   
     private readonly ICarService _carService;
 
-    public CarController(ICarService _carService)
+    public CarController(ICarService carService)
     {
-        this._carService = _carService;
+        _carService = carService;
     }
 
     [HttpGet("{carId}")]
-    [AllowAnonymous]
+    [PermissaoAuthorize(Permission.Gerente)]
     public ActionResult<Car> GetById([FromRoute] int carId)
     {
+        
         var car = _carService.GetCarById(carId);
         if (car == null) return NotFound();
         return Ok(car);
     }
 
     [HttpGet]
-    [AllowAnonymous]
-    
+    [Authorize(Roles ="Gerente")] 
     public ActionResult<List<Car>> Get([FromQuery] string name, [FromQuery] decimal? priceMin,[FromQuery] decimal? priceMax)
     {
         var car= _carService.GetGeralViewCar(name,priceMin,priceMax );
@@ -39,14 +43,22 @@ public class CarController : ControllerBase
     [HttpPost]
     [AllowAnonymous]
     public ActionResult<Car> Post([FromBody] CarDTO body)
-    {      
+    {
+
         var car = new CarDTO
         {
             Name = body.Name,
             SuggestedPrice = body.SuggestedPrice,
         };
-        _carService.Insert(car);        
+        if(ModelState.IsValid)
+        {           
+            _carService.Insert(car);          
+
+        }else{
+            BadRequest();
+        }
         return Created("api/car", car);
+        
     }
 
     [HttpDelete("{carId}")]

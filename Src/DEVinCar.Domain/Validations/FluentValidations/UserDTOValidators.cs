@@ -11,8 +11,8 @@ namespace DEVinCar.Domain.Validations.FluentValidations
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("The Password is required")
                 .Length(4, 10).WithMessage("the  Password min 4 and must be a maximum of 10 characters !")
-                .Must(CheckValuePassword).WithMessage("Invalid Password.")
-                .Matches(@"^(.{0,7}|[^0-9]*|[^A-Z])$");
+                .Must(CheckValuePassword).WithMessage("Invalid Password.");
+               // .Matches(@"^(.{0,7}|[^0-9]*|[^A-Z])$");
             RuleFor(x => x.Email)
                 .NotNull()
                 .Length(3, 100).WithMessage("the Email must be a maximum of 100 characters !")

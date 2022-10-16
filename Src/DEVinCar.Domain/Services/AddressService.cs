@@ -115,6 +115,7 @@ namespace DEVinCar.Domain.Services
             {
                 query = query.Where(a => a.Cep == cep);
             }
+          
 
             List<AddressViewModel> addressesViewModel = new List<AddressViewModel>();
             query.ToList().ForEach(address =>

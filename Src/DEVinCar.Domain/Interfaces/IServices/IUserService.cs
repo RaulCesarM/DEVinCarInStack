@@ -8,7 +8,7 @@ namespace DEVinCar.Domain.Interfaces.IServices
     {
         public User GetUserById(int id);
         public User GetUserByDTO(UserDTO entity);
-        public User Update(UserDTO entity);
+        public User UpdateByEntity(UserDTO entity);
         public User GetUserPassword(LoginDTO entity);
         public List<User> GetQueriableUser(string Name, DateTime? birthDateMax, DateTime? birthDateMin);
        

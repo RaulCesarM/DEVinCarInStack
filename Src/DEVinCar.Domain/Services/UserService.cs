@@ -35,7 +35,7 @@ namespace DEVinCar.Domain.Services
         public User GetUserByDTO(UserDTO entity)
         {
 
-            var newUser = _userRepository.GetUserName(entity);
+            var newUser = _userRepository.GetUserName(entity.Name);
 
             if (newUser != null)
             {
@@ -71,7 +71,7 @@ namespace DEVinCar.Domain.Services
 
         public void Update(UserDTO entity, int id)
         {
-            var UserUpdate = _userRepository.GetUserName(entity);
+            var UserUpdate = _userRepository.GetById(id);
             UserUpdate.Update(entity);
             _userRepository.Update(UserUpdate);
         }
@@ -108,9 +108,9 @@ namespace DEVinCar.Domain.Services
             return query.ToList();
         }
 
-        public  User Update(UserDTO entity)
+        public  User UpdateByEntity(UserDTO entity)
         {
-            var UserUpdate = _userRepository.GetUserName(entity);
+            var UserUpdate = _userRepository.GetUserName(entity.Name);
             UserUpdate.Update(entity);
             _userRepository.Update(UserUpdate);
             return UserUpdate;

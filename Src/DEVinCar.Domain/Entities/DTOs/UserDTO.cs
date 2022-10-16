@@ -7,7 +7,7 @@ namespace DEVinCar.Domain.Entities.DTOs
 {
     public class UserDTO{
        
-        public int Id { get; set; }      
+        
         public string Name { get; set; }
         public string Email { get; set; }       
         public string Password { get; set; }
@@ -31,6 +31,18 @@ namespace DEVinCar.Domain.Entities.DTOs
             BirthDate = user.BirthDate;
             Permission = user.Permission;
             
+
+        }
+
+        public UserDTO(UserDTO user)
+        {
+
+            Name = user.Name;
+            Email = user.Email;
+            Password = user.Password;
+            BirthDate = user.BirthDate;
+            Permission = user.Permission;
+
 
         }
       

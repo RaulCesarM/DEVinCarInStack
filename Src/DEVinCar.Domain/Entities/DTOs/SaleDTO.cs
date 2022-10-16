@@ -5,7 +5,7 @@ namespace DEVinCar.Domain.Entities.DTOs
 {
     public class SaleDTO
     {
-        public int Id {get; set;}        
+        public int Id {get;internal set;}        
         public int BuyerId { get; set; }
         public DateTime SaleDate { get; set; }
 

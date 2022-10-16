@@ -10,6 +10,6 @@ namespace DEVinCar.Domain.Interfaces.IRepositories
 
         public User GetUserPassword(LoginDTO entity);
         public IQueryable<User> GetGeralViewUser();
-        public User GetUserName(UserDTO entity);  
+        public User GetUserName(string name);  
     }
 }

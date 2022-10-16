@@ -6,7 +6,7 @@ namespace DEVinCar.Domain.Entities.DTOs
  {
     public class StateDTO {
 
-        public int Id {get; set;}       
+        public int Id {get;internal set;}       
         public string Name { get; set; }        
         public string Initials { get; set; }
         public StateDTO()

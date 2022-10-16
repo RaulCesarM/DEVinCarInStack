@@ -1,6 +1,7 @@
 ﻿using DEVinCar.Domain.Entities.DTOs;
 using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Interfaces.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -8,6 +9,8 @@ namespace DEVinCar.Api.Controllers;
 
 [ApiController]
 [Route("user")]
+//[Authorize(Roles = "Gerente")]
+
 
 public class UserController : ControllerBase
 {
@@ -71,8 +74,9 @@ public class UserController : ControllerBase
     public ActionResult<User> Update([FromBody] UserDTO userDto,[FromRoute] int userId )
     {
         _cache.Remove($"user:{userId}");
-        userDto.Id = userId;
-        var user = _userService.Update(userDto);
+        var usermodels = _userService.GetById(userId);
+        userDto.Name = usermodels.Name;
+        var user = _userService.UpdateByEntity(userDto);
         return Created("api/users", user);
     }
 
