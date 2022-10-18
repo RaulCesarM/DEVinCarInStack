@@ -7,7 +7,7 @@ namespace DEVinCar.Infra.Data.Context
 {
     public class DevInCarDbContext : DbContext
     {
-        private readonly IConfiguration _configuration;
+     
 
         public DbSet<City> Cities { get; set; }
         public DbSet<User> Users { get; set; }
@@ -16,18 +16,16 @@ namespace DEVinCar.Infra.Data.Context
         public DbSet<SaleCar> SaleCars { get; set; }
         public DbSet<Delivery> Deliveries { get; set; }
         public DbSet<State> States { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-
-        public DevInCarDbContext( IConfiguration configuration) 
-        {
-            _configuration = configuration;
-        }
+        public DbSet<Address> Addresses { get; set; }  
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
 
        } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

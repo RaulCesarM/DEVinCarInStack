@@ -10,8 +10,10 @@ ValidatorsIOC.RegisterServices(builder.Services);
 AuthenticationIOC.RegisterServices(builder.Services);
 builder.Services.AddMemoryCache();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddDbContext<DevInCarDbContext>();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMvc(config =>{
+                
                 config.ReturnHttpNotAcceptable = true;
                 config.OutputFormatters.Add(new XmlSerializerOutputFormatter());
                 config.InputFormatters.Add(new XmlSerializerInputFormatter(config));

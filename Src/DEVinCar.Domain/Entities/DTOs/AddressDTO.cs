@@ -23,7 +23,7 @@ namespace DEVinCar.Domain.Entities.DTOs
 
         public AddressDTO(Address address)
         {
-     //   City = address.City;
+     
         Id =  address.Id;    
         Street =address.Street;
         Cep = address.Cep;

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DEVinCar.Infra.Data.Migrations
 {
     [DbContext(typeof(DevInCarDbContext))]
-    [Migration("20221014220542_populations")]
+    [Migration("20221018215210_populations")]
     partial class populations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

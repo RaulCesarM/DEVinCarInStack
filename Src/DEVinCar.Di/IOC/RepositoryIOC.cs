@@ -12,9 +12,6 @@ namespace DEVinCar.Di.IOC
         public static void RegisterServices(IServiceCollection builder)
         {
     
-            builder.AddDbContext<DevInCarDbContext>();
-
-        
             
             builder.AddScoped<IAddressRepository, AddressRepository>();
             builder.AddScoped<ICarRepository, CarRepository>();

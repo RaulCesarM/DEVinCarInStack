@@ -45,6 +45,7 @@ namespace DEVinCar.Domain.Entities.DTOs
 
 
         }
+
       
     }
 }
