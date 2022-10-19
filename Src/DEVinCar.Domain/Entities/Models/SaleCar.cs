@@ -24,6 +24,17 @@ namespace DEVinCar.Domain.Entities.Models
             SaleId = saleCarDTO.SaleId;
         }
 
+        public SaleCar(int _Id, decimal _UnitPrice, int _Amount, int _CarId, int _SaleId)
+        {
+            Id=_Id;
+            UnitPrice =_UnitPrice;
+            Amount =_Amount;
+            CarId = _CarId;
+            SaleId =_SaleId;
+
+
+        }
+
         public void Update(SaleCarDTO saleCarDTO)
         {
             CarId = saleCarDTO.CarId;

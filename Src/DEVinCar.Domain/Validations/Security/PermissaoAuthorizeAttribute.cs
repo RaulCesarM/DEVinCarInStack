@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace DEVinCar.Domain.Util.AttributesPersonalisad
+namespace DEVinCar.Domain.Validations.Security
 {
     public class PermissaoAuthorizeAttribute : AuthorizeAttribute
     {

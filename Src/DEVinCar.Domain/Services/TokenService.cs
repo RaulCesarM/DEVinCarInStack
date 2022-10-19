@@ -1,4 +1,3 @@
-
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -18,7 +17,7 @@ namespace DEVinCar.Domain.Services
             var claims = new Claim[]
              {
                     new Claim(ClaimTypes.Name, user.Name),
-                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Email,user.Email),
                     new Claim(ClaimTypes.Role, user.Permission.GetDisplayName())
              };
 

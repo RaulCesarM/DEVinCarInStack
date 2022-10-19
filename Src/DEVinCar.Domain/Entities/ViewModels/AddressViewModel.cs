@@ -44,6 +44,7 @@ namespace DEVinCar.Domain.Entities.ViewModels
             Number = address.Number;
             Complement = address.Complement;
             Cep = address.Cep;
+            
         }
 
         public AddressViewModel(Address address)

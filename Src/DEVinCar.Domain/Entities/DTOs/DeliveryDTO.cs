@@ -4,8 +4,8 @@ namespace DEVinCar.Domain.Entities.DTOs;
 
 public class DeliveryDTO
 {
-    public int Id { get; set; }
-    public int? AddressId { get; set; }
+    public int Id { get;internal set; }
+    public int AddressId { get; set; }
     public DateTime? DeliveryForecast { get; set; }
     public DeliveryDTO()
     {

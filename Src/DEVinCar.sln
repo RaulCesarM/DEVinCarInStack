@@ -5,11 +5,13 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DEVinCar.Api", "DEVinCar.Api\DEVinCar.Api.csproj", "{D9A76EEA-9C5C-4B22-ADEB-E2A96183A822}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEVinCar.Infra", "DEVinCar.Infra\DEVinCar.Infra.csproj", "{2CDDA835-E7A8-4E1C-8343-A0371D1458CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DEVinCar.Infra", "DEVinCar.Infra\DEVinCar.Infra.csproj", "{2CDDA835-E7A8-4E1C-8343-A0371D1458CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEVinCar.Domain", "DEVinCar.Domain\DEVinCar.Domain.csproj", "{89B0B7C1-0628-4CD7-9789-8BB5C912AB94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DEVinCar.Domain", "DEVinCar.Domain\DEVinCar.Domain.csproj", "{89B0B7C1-0628-4CD7-9789-8BB5C912AB94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEVinCar.Di", "DEVinCar.Di\DEVinCar.Di.csproj", "{629452A3-78B1-409B-8442-782F67E149EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DEVinCar.Di", "DEVinCar.Di\DEVinCar.Di.csproj", "{629452A3-78B1-409B-8442-782F67E149EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DEVinCar.Test", "DEVinCar.Test\DEVinCar.Test.csproj", "{A6A6B46F-781A-4534-9881-A863397A4633}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{629452A3-78B1-409B-8442-782F67E149EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{629452A3-78B1-409B-8442-782F67E149EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{629452A3-78B1-409B-8442-782F67E149EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6A6B46F-781A-4534-9881-A863397A4633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6A6B46F-781A-4534-9881-A863397A4633}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6A6B46F-781A-4534-9881-A863397A4633}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6A6B46F-781A-4534-9881-A863397A4633}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

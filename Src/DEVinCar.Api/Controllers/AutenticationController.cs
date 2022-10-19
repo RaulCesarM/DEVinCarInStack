@@ -9,32 +9,20 @@ namespace DEVinCar.Api.Controllers
 {
     public class AutenticationController : ControllerBase
     {
-
-
         private readonly IUserService _userService;
-
         public AutenticationController(IUserService userService)
         {
             _userService = userService;
         }
-
-
-
-
-
         [HttpPost]
         [Route("login")]
         public IActionResult Login([FromBody] LoginDTO dto)
         {
-
             var user = _userService.GetUserPassword(dto);
-
             if (user == null) return Unauthorized();
-
             var token = TokenService.GenerateTokenFromUser(user);
             var refreshToken = TokenService.GenerateRefreshToken();
             TokenService.SaveRefreshToken(user.Name, refreshToken);
-
             return Ok(new
             {
                 token,
@@ -50,22 +38,17 @@ namespace DEVinCar.Api.Controllers
             var principal = TokenService.GetPrincipalFromExpiredToken(token);
             var username = principal.Identity.Name;
             var savedRefreshToken = TokenService.GetRefreshToken(username);
-
             if (savedRefreshToken != refreshToken)
                 throw new SecurityTokenException("Invalid refresh token");
-
             var newToken = TokenService.GenerateTokenFromClaims(principal.Claims);
             var newRefreshToken = TokenService.GenerateRefreshToken();
             TokenService.DeleteRefreshToken(username, refreshToken);
             TokenService.SaveRefreshToken(username, newRefreshToken);
-
             return new ObjectResult(new
             {
                 token = newToken,
                 refreshToken = newRefreshToken
-
             });
-
         }
 
         [HttpGet]

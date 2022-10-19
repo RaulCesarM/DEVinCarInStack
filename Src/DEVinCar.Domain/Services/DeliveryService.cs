@@ -8,10 +8,13 @@ namespace DEVinCar.Domain.Services
 {
     public class DeliveryService : IDeliveryService
     {
+
         private readonly IDeliveryRepository _deliveryRepository;
-        public DeliveryService(IDeliveryRepository deliveryRepository)
+        private readonly ISaleRepository _saleRepository;
+        public DeliveryService(IDeliveryRepository deliveryRepository, ISaleRepository saleRepository)
         {
             _deliveryRepository= deliveryRepository;
+            _saleRepository = saleRepository;
         }
         public IList<DeliveryDTO> GetAll(Pagination pagination)
         {
@@ -70,6 +73,48 @@ namespace DEVinCar.Domain.Services
             }
             return query.ToList();
         }
+
+        public int PostDeliveryDTO( int saleId, DeliveryDTO body)
+        {
+            int addressId = body.AddressId;
+            if (body.AddressId <0)
+            {
+                throw new BadRequestExceptions($"Address id not valid.");
+            }
+
+            if (_saleRepository.GetById(saleId) == null)
+            {
+                throw new NotFoundException($"The Delivery with sale Id {saleId} not found.");
+            }
+
+            if (_saleRepository.GetById(body.AddressId) == null)
+            {
+                throw new NotFoundException($"The Delivery with Address Id {body.AddressId} not found.");
+            }
+
+            var now = DateTime.Now.Date;
+            if (body.DeliveryForecast < now)
+            {
+                throw new BadRequestExceptions($"Date not valid.");
+            }
+            if (body.DeliveryForecast == null)
+            {
+                body.DeliveryForecast = DateTime.Now.AddDays(7);
+            }
+
+            var deliver = new Delivery
+            {
+                AddressId = (int)body.AddressId,
+                SaleId = saleId,
+                DeliveryForecast = (DateTime)body.DeliveryForecast
+            };
+
+            _deliveryRepository.Insert(deliver);
+            return  deliver.Id;
+        }
+
+
+        
 
 
     }

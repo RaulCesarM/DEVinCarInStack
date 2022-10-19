@@ -4,26 +4,30 @@ using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Entities.DTOs;
 using DEVinCar.Domain.Entities.ViewModels;
 using DEVinCar.Domain.Validations.Exceptions;
-using System.Collections.Generic;
+
 
 namespace DEVinCar.Domain.Services
 {
     public class SaleService : ISaleService
     {
+        private readonly ICarRepository _carRepository;
+        private readonly ISaleCarRepository _saleCarRepository;
         private readonly ISaleRepository _saleRepository;
         private readonly IUserRepository _userRepository;
-        public SaleService(ISaleRepository saleRepository, IUserRepository userRepository)
+        public SaleService(ISaleRepository saleRepository, IUserRepository userRepository, ISaleCarRepository saleCarRepository, ICarRepository carRepository)
         {
             _saleRepository = saleRepository;
             _userRepository = userRepository;
+            _saleCarRepository = saleCarRepository;
+            _carRepository = carRepository;
         }
-        
+
         public IList<SaleDTO> GetAll(Pagination pagination)
         {
-           return _saleRepository
-           .GetAll(pagination)
-           .Select(x => new SaleDTO(x))
-           .ToList();
+            return _saleRepository
+            .GetAll(pagination)
+            .Select(x => new SaleDTO(x))
+            .ToList();
         }
 
         public SaleDTO GetById(int id)
@@ -33,7 +37,7 @@ namespace DEVinCar.Domain.Services
 
         public int GetTotal()
         {
-           return _saleRepository.GetTotal();
+            return _saleRepository.GetTotal();
         }
 
         public void Insert(SaleDTO entity)
@@ -56,10 +60,11 @@ namespace DEVinCar.Domain.Services
 
         public List<SaleViewModel> GetViewItens(int id)
         {
-          return  _saleRepository.GetItens(id).ToList();
+            return _saleRepository.GetItens(id).ToList();
         }
 
-        public IList<Sale> GetReationBuyOnUser(int userid){
+        public IList<Sale> GetReationBuyOnUser(int userid)
+        {
 
             var sale = _saleRepository.GetReationBuyOnUser(userid);
             if (sale == null)
@@ -70,7 +75,7 @@ namespace DEVinCar.Domain.Services
 
         }
 
-        public Sale PostSaleUserId( int userId, SaleDTO body)
+        public Sale PostSaleUserId(int userId, SaleDTO body)
         {
 
             if (body.BuyerId == 0)
@@ -102,12 +107,12 @@ namespace DEVinCar.Domain.Services
                 SaleDate = body.SaleDate,
             };
             _saleRepository.Insert(sale);
-           
-            return  sale;
+
+            return sale;
 
         }
 
-        public Sale PostBuyUserId(int userId,  BuyDTO body)
+        public Sale PostBuyUserId(int userId, BuyDTO body)
         {
 
             var user = _userRepository.GetById(userId);
@@ -134,10 +139,11 @@ namespace DEVinCar.Domain.Services
             };
 
             _saleRepository.Insert(buy);
-            return  buy;
+            return buy;
         }
 
-        public List<Sale> GetByIdbuy(int userId){
+        public List<Sale> GetByIdbuy(int userId)
+        {
             var sales = _saleRepository.GetReationBuyOnUser(userId);
 
             if (sales == null || sales.Count() == 0)
@@ -147,6 +153,105 @@ namespace DEVinCar.Domain.Services
             return sales.ToList();
         }
 
-    
+
+        public SaleCar PostSale(SaleCarDTO body, int saleId)
+        {
+            decimal unitPrice;
+
+            if (_saleCarRepository.CheckSaleCar(body, saleId))
+            {
+                if (body.CarId == 0)
+                {
+                    throw new BadRequestExceptions($"Not valid id");
+                }
+
+                if (body.UnitPrice <= 0 || body.Amount <= 0)
+                {
+                    throw new BadRequestExceptions($"Not valid price");
+                }
+
+                if (body.UnitPrice == null)
+                {
+                    unitPrice = _carRepository.GetById(body.CarId).SuggestedPrice;
+                }
+                else
+                {
+                    unitPrice = (decimal)body.UnitPrice;
+                }
+
+
+                if (body.Amount == null)
+                {
+                    body.Amount = 1;
+                }
+
+                var saleCar = new SaleCar
+                {
+                    Id = saleId,
+                    Amount = body.Amount,
+                    CarId = body.CarId,
+                    UnitPrice = unitPrice,
+                    SaleId = saleId
+                };
+
+                _saleCarRepository.Insert(saleCar);
+
+                return saleCar;
+            }
+            throw new NotFoundException($"The Sale not exists.");
+        }
+
+        public SaleCar PatchAmount(int saleId, int carId, int amount)
+        {
+            var sale = _saleRepository.GetById(saleId);
+            var saleCar = _saleCarRepository.GetById(carId);
+
+            if (sale == null || saleCar == null)
+            {
+                throw new NotFoundException($"The Car-Sale id or Car id not exists.");
+            }
+
+            if (amount <= 0)
+            {
+                throw new BadRequestExceptions($"Not valid Amount");
+            }
+
+            try
+            {
+
+                saleCar.Amount = amount;
+                _saleCarRepository.Update(saleCar);
+                return saleCar;
+            }
+            catch (Exception)
+            {
+                throw new BadRequestExceptions($"Could not update");
+            }
+        }
+
+        public SaleCar PatchtUnitPrice(int saleId, int carId, decimal unitPrice)
+        {
+            var sale = _saleRepository.GetById(saleId);
+            var saleCar = _saleCarRepository.GetById(carId);
+
+            if (sale == null || saleCar == null)
+            {
+                throw new NotFoundException($"The Car-Sale id or Car id not exists.");
+            }
+            if (unitPrice <= 0)
+            {
+                throw new BadRequestExceptions($"Not valid unitPrice");
+            }
+            try
+            {
+                saleCar.UnitPrice = unitPrice;
+                _saleCarRepository.Update(saleCar);
+                return saleCar;
+            }
+            catch (Exception)
+            {
+                throw new BadRequestExceptions($"Could not update");
+            }
+        }
     }
 }

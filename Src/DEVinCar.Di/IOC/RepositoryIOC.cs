@@ -13,6 +13,8 @@ namespace DEVinCar.Di.IOC
         {
     
             builder.AddDbContext<DevInCarDbContext>();
+
+        
             
             builder.AddScoped<IAddressRepository, AddressRepository>();
             builder.AddScoped<ICarRepository, CarRepository>();

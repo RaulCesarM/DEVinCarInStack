@@ -7,7 +7,7 @@ namespace DEVinCar.Infra.Data.Context
 {
     public class DevInCarDbContext : DbContext
     {
-       // private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         public DbSet<City> Cities { get; set; }
         public DbSet<User> Users { get; set; }
@@ -18,19 +18,18 @@ namespace DEVinCar.Infra.Data.Context
         public DbSet<State> States { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
-        // public DevInCarDbContext(IConfiguration configuration)
-        // {
-        //     _configuration = configuration;
-        // }
+        public DevInCarDbContext( IConfiguration configuration) 
+        {
+            _configuration = configuration;
+        }
 
-       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
 
-            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=BD_DEVINCAR;Trusted_Connection=True;");
-         
-        }
+       } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AddressMapping());
@@ -40,10 +39,8 @@ namespace DEVinCar.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new SaleCarMapping());
             modelBuilder.ApplyConfiguration(new SaleMapping());
             modelBuilder.ApplyConfiguration(new StateMapping());
-            modelBuilder.ApplyConfiguration(new UserMapping());
-           
+            modelBuilder.ApplyConfiguration(new UserMapping());           
         }
-
        
     }
 }

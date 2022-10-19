@@ -19,7 +19,8 @@ namespace DEVinCar.Infra.Data.Repository
             return _context.Users.Count();
         }
 
-        public User GetUserPassword(LoginDTO entity){
+        public User GetUserPassword(LoginDTO entity)
+        {
 
             var user = _context.Users.FirstOrDefault(x => x.Email == entity.Email && x.Password == entity.Password);
 
@@ -27,15 +28,15 @@ namespace DEVinCar.Infra.Data.Repository
 
         }
 
-            public IQueryable<User> GetGeralViewUser()
-            {
+        public IQueryable<User> GetGeralViewUser()
+        {
             return _context.Set<User>().AsQueryable();
-            }
+        }
 
-        public User GetUserName(UserDTO entity)
+        public User GetUserName(string  name)
         {
 
-            var user = _context.Users.FirstOrDefault(x => x.Name == entity.Name);
+            var user = _context.Users.FirstOrDefault(x => x.Name == name);
 
             return user;
 
