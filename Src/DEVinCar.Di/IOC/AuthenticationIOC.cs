@@ -20,7 +20,7 @@ namespace DEVinCar.Di.IOC
         {
             
             IConfiguration configuration = new ConfigurationBuilder()
-                            .SetBasePath(Directory.GetCurrentDirectory())
+                         //   .SetBasePath(Directory.GetCurrentDirectory())
                             .AddJsonFile("appsettings.json")
                             .Build();
 
