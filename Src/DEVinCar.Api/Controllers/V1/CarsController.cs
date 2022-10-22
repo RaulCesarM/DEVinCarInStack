@@ -41,7 +41,7 @@ public class CarController : ControllerBase
     }
 
     [HttpPost]
-    [PermissaoAuthorize(Permission.Gerente)]
+    [AllowAnonymous]
     public ActionResult<Car> Post([FromBody] CarDTO body)
     {
 

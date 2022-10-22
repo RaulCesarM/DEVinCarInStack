@@ -3,8 +3,10 @@ using DEVinCar.Domain.Interfaces.IServices;
 using DEVinCar.Domain.Entities.ViewModels;
 using DEVinCar.Domain.Entities.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using DEVinCar.Domain.Validations.Security;
+using DEVinCar.Domain.Entities.Enuns;
 
-namespace DEVinCar.Api.Controllers;
+namespace DEVinCar.Api.Controllers.V1;
 
 [ApiController]
 [Route("api/address")]
@@ -20,7 +22,7 @@ public class AddressesController : ControllerBase
     }
 
     [HttpGet]
-    [AllowAnonymous]
+    [PermissaoAuthorize(Permission.Gerente)]
     public ActionResult<List<AddressViewModel>> Get([FromQuery] int? cityId,[FromQuery] int? stateId,[FromQuery] string street,[FromQuery] string cep)                                                 
     {       
         var query = _serviceAddress.GetGeralViewAddress(cityId, stateId, street, cep);
