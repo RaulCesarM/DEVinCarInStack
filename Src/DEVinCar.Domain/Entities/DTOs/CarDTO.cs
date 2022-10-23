@@ -9,6 +9,8 @@ namespace DEVinCar.Domain.Entities.DTOs
         
         public string Name { get; set; }
         public decimal SuggestedPrice { get; set; }
+
+        public IList<HateoasDTO> Links { get; set; }
         
 
         public CarDTO()

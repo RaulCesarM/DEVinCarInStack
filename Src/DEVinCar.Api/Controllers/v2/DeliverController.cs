@@ -28,7 +28,7 @@ namespace DEVinCar.Api.Controllers.v2
                 var page = new Pagination(take, skip);
                 var Total = _deliveryService.GetTotal();
                 Response.Headers.Add("X-Paginacao-TotalRegistros", Total.ToString());
-                var query = _deliveryService.GetDelivery(addressId, saleId, page);
+                var query = _deliveryService.GetDelivery(addressId, saleId,page);
                 return Ok(query.ToList());
 
             }

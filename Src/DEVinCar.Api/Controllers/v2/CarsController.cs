@@ -59,7 +59,11 @@ public class CarController : ControllerBase
         try
         {
            var coock = Request.Cookies["Coockie"]; ///use coockie
-            return Ok(_mapper.Map<CarDTO>(_carService.GetCarById(carId)));
+           var uri = $"{Request.Scheme}://{Request.Host}";
+           var car = _mapper.Map<CarDTO>(_carService.GetCarById(carId));
+           car.Links = GetHateoas(carId,uri);
+           
+            return Ok(car);
 
         }
         catch
@@ -126,5 +130,37 @@ public class CarController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
 
+    }
+
+    private List<HateoasDTO> GetHateoas(int Id, string UriBase)
+    {
+        return new List<HateoasDTO>()
+        {
+            new HateoasDTO(){
+                Rel = "self",
+                Type = "GET",
+                URI = $"{UriBase}/API/v2/car/{Id}"
+
+            },
+            new HateoasDTO(){
+                Rel = "self",
+                Type = "POST",
+                URI =  $"{UriBase}/API/v2/car/{Id}"
+
+            },
+            new HateoasDTO(){
+                Rel = "self",
+                Type = "PUT",
+                URI =  $"{UriBase}/API/v2/car/{Id}"
+
+            },
+            new HateoasDTO(){
+                Rel = "self",
+                Type = "DELETE",
+                URI =  $"{UriBase}/API/v2/car/{Id}"
+
+            }
+
+        };
     }
 }
