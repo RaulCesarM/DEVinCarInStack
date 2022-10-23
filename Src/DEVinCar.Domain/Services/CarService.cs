@@ -55,6 +55,9 @@ namespace DEVinCar.Domain.Services
         public void Remove(int id)
         {
            var CarRemove = _carRepository.GetById(id);
+           if(CarRemove == null){
+                throw new IncorrectInputMessageException($"The incorrect value object id.");
+           }
             _carRepository.Remove(CarRemove);
         }
 
@@ -69,11 +72,12 @@ namespace DEVinCar.Domain.Services
 
 
 
-        public IList<Car> GetGeralViewCar(string name,
+        public IList<Car> GetGeralViewCarPage(string name,
                                         decimal? priceMin,
-                                        decimal? priceMax)
+                                        decimal? priceMax,
+                                        Pagination? page)
         {
-            var query = _carRepository.GetGeralViewCar();
+            var query = _carRepository.GetGeralViewCar(page);
             if (!string.IsNullOrEmpty(name))
             {
                 query = query.Where(c => c.Name.Contains(name));
@@ -106,6 +110,9 @@ namespace DEVinCar.Domain.Services
             return new CarDTO(_carRepository.GetById(id));
         }
 
-        
+        public IList<Car> GetGeralViewCar(string name, decimal? priceMin, decimal? priceMax)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

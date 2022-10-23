@@ -42,6 +42,7 @@ builder.Services.AddMvc(config =>
     config.OutputFormatters.Add(new XmlSerializerOutputFormatter());
     config.InputFormatters.Add(new XmlSerializerInputFormatter(config));
 });
+builder.Services.AddSingleton(ConfigureAutoMapper.Configure());
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

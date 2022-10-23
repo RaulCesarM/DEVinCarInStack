@@ -35,8 +35,8 @@ public class CarController : ControllerBase
     [HttpGet]
     [Authorize(Roles ="Gerente")] 
     public ActionResult<List<Car>> Get([FromQuery] string name, [FromQuery] decimal? priceMin,[FromQuery] decimal? priceMax)
-    {
-        var car= _carService.GetGeralViewCar(name,priceMin,priceMax );
+    {   
+        var car= _carService.GetGeralViewCar(name,priceMin,priceMax);
         return Ok(car);
     }
 

@@ -22,6 +22,6 @@ namespace DEVinCar.Domain.Entities.DTOs
             SuggestedPrice = car.SuggestedPrice;            
         }
 
-        
+       
     }
 }

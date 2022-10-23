@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using DEVinCar.Domain.Entities.Enuns;
 using DEVinCar.Domain.Validations.Security;
+using AutoMapper;
+
 
 namespace DEVinCar.Api.Controllers.v2;
 
@@ -17,61 +19,72 @@ public class CarController : ControllerBase
 {
    
     private readonly ICarService _carService;
+    private readonly IMapper _mapper;
 
-    public CarController(ICarService carService)
+    public CarController(ICarService carService, IMapper mapper)
     {
+        _mapper = mapper;
         _carService = carService;
     }
 
     [HttpGet("{carId}")]
-    [PermissaoAuthorize(Permission.Gerente)]
-    public ActionResult<Car> GetById([FromRoute] int carId)
+    [AllowAnonymous]
+    public ActionResult<CarDTO> GetById([FromRoute] int carId)
     {
-        
-        var car = _carService.GetCarById(carId);
-        if (car == null) return NotFound();
-        return Ok(car);
+        try{
+            return Ok(_mapper.Map<CarDTO>(_carService.GetCarById(carId)));
+
+        }catch{
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }       
     }
 
     [HttpGet]
-    [Authorize(Roles ="Gerente")] 
-    public ActionResult<List<Car>> Get([FromQuery] string name, [FromQuery] decimal? priceMin,[FromQuery] decimal? priceMax)
-    {
-        var car= _carService.GetGeralViewCar(name,priceMin,priceMax );
-        return Ok(car);
+    [AllowAnonymous]   
+    public ActionResult<List<CarDTO>> Get([FromQuery] string name, [FromQuery] decimal? priceMin,[FromQuery] decimal? priceMax,int skip = 0, int take = 5 )
+    {  
+        try{
+            var page = new Pagination(take, skip);
+            var Total = _carService.GetTotal();
+            Response.Headers.Add("X-Paginacao-TotalRegistros", Total.ToString());
+            var car = _carService.GetGeralViewCarPage(name, priceMin, priceMax, page);
+            return Ok(car);
+
+        }catch{
+           return StatusCode(StatusCodes.Status500InternalServerError);
+        }
     }
 
-    [HttpPost]
-    [AllowAnonymous]
-    public ActionResult<Car> Post([FromBody] CarDTO body)
+    [HttpPost]    
+    [PermissaoAuthorize(Permission.Administrador)]
+    public ActionResult<Car> Post([FromBody] CarDTO car)
     {
-
-        var car = new CarDTO
-        {
-            Name = body.Name,
-            SuggestedPrice = body.SuggestedPrice,
-        };
-        if(ModelState.IsValid)
-        {           
-            _carService.Insert(car);          
-
-        }else{
-            BadRequest();
-        }
-        return Created("api/car", car);
+        try{
+            _carService.Insert(_mapper.Map<CarDTO>(car));
+            return StatusCode(StatusCodes.Status201Created);
+        
+        }catch{
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }      
         
     }
 
     [HttpDelete("{carId}")]
+    
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult Delete([FromRoute] int carId)
-    {              
-        _carService.Remove(carId);
-        var car = _carService.GetCarById(carId);
-        if(car !=null){
-            return BadRequest();
-        }       
-        return Ok();
+    {     
+        
+            _carService.Remove(carId);
+            if(_carService.GetById(carId) == null){
+
+            return Ok($"removed with successor,{carId}");  
+            }else{
+            return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+           
+      
+
     }
 
     [HttpPut("{carId}")]

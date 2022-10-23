@@ -8,7 +8,7 @@ namespace DEVinCar.Domain.Interfaces.IRepositories
     public interface ICarRepository : IBaseRepository<Car, int>
     {
 
-        public IQueryable<Car> GetGeralViewCar();
+        public IQueryable<Car> GetGeralViewCar(Pagination pagination);
       
     }
 }
