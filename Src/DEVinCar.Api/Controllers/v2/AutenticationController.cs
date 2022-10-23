@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DEVinCar.Api.Controllers.v1
+namespace DEVinCar.Api.Controllers.v2
 {
     [Route("API/v{version:apiVersion}/autentication")]
     [Route("api/autentication")]
-    [ApiVersion("1", Deprecated = true)]
+    [ApiVersion("2", Deprecated = false)]
     public class AutenticationController : ControllerBase
     {
         private readonly IUserService _userService;

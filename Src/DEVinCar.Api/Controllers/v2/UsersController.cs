@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace DEVinCar.Api.Controllers.v1;
+namespace DEVinCar.Api.Controllers.v2;
 
 [ApiController]
 [Route("API/v{version:apiVersion}/user")]
 [Route("api/user")]
-[ApiVersion("1", Deprecated = true)]
+[ApiVersion("2", Deprecated = false)]
 [Authorize]
 public class UserController : ControllerBase
 {

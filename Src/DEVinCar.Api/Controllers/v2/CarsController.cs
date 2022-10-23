@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using DEVinCar.Domain.Entities.Enuns;
 using DEVinCar.Domain.Validations.Security;
 
-namespace DEVinCar.Api.Controllers.v1;
+namespace DEVinCar.Api.Controllers.v2;
+
 
 [ApiController]
 [Route("API/v{version:apiVersion}/car")]
 [Route("api/car")]
-[ApiVersion("1", Deprecated = true)]
+[ApiVersion("2", Deprecated = true)]
 [Authorize]
 public class CarController : ControllerBase
 {

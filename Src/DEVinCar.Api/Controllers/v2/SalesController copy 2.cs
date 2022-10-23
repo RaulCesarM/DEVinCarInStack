@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 
 
 
-namespace DEVinCar.Api.Controllers.v1
+namespace DEVinCar.Api.Controllers.v2
 {
 
 
     [ApiController]
     [Route("API/v{version:apiVersion}/sales")]
     [Route("api/sales")]
-    [ApiVersion("1", Deprecated = true)]
+    [ApiVersion("2", Deprecated = false)]
     [Authorize]
     public class SalesController : ControllerBase
     {

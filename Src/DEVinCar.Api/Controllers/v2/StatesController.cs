@@ -6,12 +6,12 @@ using DEVinCar.Domain.Validations.Security;
 using DEVinCar.Domain.Entities.Enuns;
 using Microsoft.AspNetCore.Authorization;
 
-namespace DEVinCar.Api.Controllers.v1;
+namespace DEVinCar.Api.Controllers.v2;
 
 [ApiController]
 [Route("API/v{version:apiVersion}/state")]
 [Route("api/state")]
-[ApiVersion("1", Deprecated = true)]
+[ApiVersion("2", Deprecated = false)]
 [Authorize]
 public class StatesController : ControllerBase
 {
