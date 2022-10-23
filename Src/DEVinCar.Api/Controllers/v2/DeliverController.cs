@@ -1,6 +1,6 @@
-﻿using DEVinCar.Domain.Entities.Models;
+﻿using DEVinCar.Domain.Entities.DTOs;
+using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Domain.Interfaces.IServices;
-using DEVinCar.Domain.Validations.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,11 +21,14 @@ namespace DEVinCar.Api.Controllers.v2
 
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult<Delivery> Get([FromQuery] int? addressId,[FromQuery] int? saleId)
+        public ActionResult<DeliveryDTO> GetAllDeliverys([FromQuery] int? addressId,[FromQuery] int? saleId, int skip = 0, int take = 5)
         {
             try
             {
-                var query = _deliveryService.GetDelivery(addressId, saleId);
+                var page = new Pagination(take, skip);
+                var Total = _deliveryService.GetTotal();
+                Response.Headers.Add("X-Paginacao-TotalRegistros", Total.ToString());
+                var query = _deliveryService.GetDelivery(addressId, saleId, page);
                 return Ok(query.ToList());
 
             }

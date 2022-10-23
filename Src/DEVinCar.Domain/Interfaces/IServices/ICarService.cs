@@ -14,7 +14,7 @@ namespace DEVinCar.Domain.Interfaces.IServices
         string name,
          decimal? priceMin,
          decimal? priceMax,
-         Pagination? page);
+         Pagination page);
 
         public Car GetCarById(int id);
 

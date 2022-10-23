@@ -17,7 +17,7 @@ namespace DEVinCar.Api.Controllers.v2;
 [Authorize]
 public class CarController : ControllerBase
 {
-   
+
     private readonly ICarService _carService;
     private readonly IMapper _mapper;
 
@@ -31,75 +31,92 @@ public class CarController : ControllerBase
     [AllowAnonymous]
     public ActionResult<CarDTO> GetById([FromRoute] int carId)
     {
-        try{
+        try
+        {
             return Ok(_mapper.Map<CarDTO>(_carService.GetCarById(carId)));
 
-        }catch{
+        }
+        catch
+        {
             return StatusCode(StatusCodes.Status500InternalServerError);
-        }       
+        }
     }
 
     [HttpGet]
-    [AllowAnonymous]   
-    public ActionResult<List<CarDTO>> Get([FromQuery] string name, [FromQuery] decimal? priceMin,[FromQuery] decimal? priceMax,int skip = 0, int take = 5 )
-    {  
-        try{
+    [AllowAnonymous]
+    public ActionResult<List<CarDTO>> Get([FromQuery] string name, [FromQuery] decimal? priceMin, [FromQuery] decimal? priceMax, int skip = 0, int take = 5)
+    {
+        try
+        {
             var page = new Pagination(take, skip);
             var Total = _carService.GetTotal();
             Response.Headers.Add("X-Paginacao-TotalRegistros", Total.ToString());
             var car = _carService.GetGeralViewCarPage(name, priceMin, priceMax, page);
             return Ok(car);
 
-        }catch{
-           return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
-    [HttpPost]    
+    [HttpPost]
     [PermissaoAuthorize(Permission.Administrador)]
     public ActionResult<Car> Post([FromBody] CarDTO car)
     {
-        try{
+        try
+        {
             _carService.Insert(_mapper.Map<CarDTO>(car));
             return StatusCode(StatusCodes.Status201Created);
-        
-        }catch{
+
+        }
+        catch
+        {
             return StatusCode(StatusCodes.Status400BadRequest);
-        }      
-        
+        }
+
     }
 
     [HttpDelete("{carId}")]
-    
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult Delete([FromRoute] int carId)
-    {     
-        
-            _carService.Remove(carId);
-            if(_carService.GetById(carId) == null){
+    {
 
-            return Ok($"removed with successor,{carId}");  
-            }else{
+        _carService.Remove(carId);
+        if (_carService.GetById(carId) == null)
+        {
+
+            return Ok($"removed with successor,{carId}");
+        }
+        else
+        {
             return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-           
-      
+        }
+
+
 
     }
 
     [HttpPut("{carId}")]
-    [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
-    public ActionResult<Car> Put([FromBody] CarDTO carDto, [FromRoute] int carId)
+   // [AllowAnonymous]
+     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
+    public ActionResult<Car> EditCarNameOrPrice([FromBody] CarDTO carDto, [FromRoute] int carId)
     {
-        var car = _carService.GetCarById(carId);
-        if (car == null)
-            return NotFound();
-        if (carDto.Name.Equals(null) || carDto.SuggestedPrice.Equals(null))
-            return BadRequest();
-        if (carDto.SuggestedPrice <= 0)
-            return BadRequest();
-        car.Name = carDto.Name;
-        car.SuggestedPrice = carDto.SuggestedPrice;      
-        return NoContent();
+        try
+        {
+            var car = _carService.GetCarById(carId);
+            car.Name = carDto.Name;
+            car.SuggestedPrice = carDto.SuggestedPrice;
+
+            _carService.Update(_mapper.Map<CarDTO>(car), carId);
+            return Ok("Edited");
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
     }
 }

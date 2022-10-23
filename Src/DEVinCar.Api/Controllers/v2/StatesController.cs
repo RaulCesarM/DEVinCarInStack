@@ -5,6 +5,7 @@ using DEVinCar.Domain.Entities.ViewModels;
 using DEVinCar.Domain.Validations.Security;
 using DEVinCar.Domain.Entities.Enuns;
 using Microsoft.AspNetCore.Authorization;
+using AutoMapper;
 
 namespace DEVinCar.Api.Controllers.v2;
 
@@ -16,11 +17,13 @@ public class StatesController : ControllerBase
 {
     private readonly IStateService _stateService;
     private readonly IAddressService _addressService;
+    private readonly IMapper _mapper;
 
-    public StatesController(IStateService stateService, IAddressService addressService)
+    public StatesController(IStateService stateService, IAddressService addressService, IMapper mapper)
     {
         _stateService = stateService;
         _addressService = addressService;
+        _mapper = mapper;
     }
 
     [HttpPost("{stateId}/city")]
@@ -31,14 +34,11 @@ public class StatesController : ControllerBase
         {
             var Id = _stateService.PostCity(stateId, cityDTO);
             return Created("api/{stateId}/city", Id);
-
         }
         catch
         {
             return StatusCode(StatusCodes.Status400BadRequest);
-        }
-
-       
+        }       
     }
 
 
@@ -51,14 +51,11 @@ public class StatesController : ControllerBase
         {
             var address = _addressService.PostAdress(stateId, cityId, body);
             return Created($"api/state/{stateId}/city/{cityId}/", address);
-
         }
         catch
         {
             return StatusCode(StatusCodes.Status400BadRequest);
-        }
-        
-        
+        }        
     }
 
 
@@ -76,8 +73,7 @@ public class StatesController : ControllerBase
         catch
         {
             return StatusCode(StatusCodes.Status400BadRequest);
-        }
-        
+        }        
        
     }
 
@@ -88,11 +84,9 @@ public class StatesController : ControllerBase
 
         try
         {
-
             var filterState = _stateService.GetById(stateId);
             var response = new GetStateByIdViewModel(filterState.Id, filterState.Name, filterState.Initials);
             return Ok(response);
-
         }
         catch
         {

@@ -52,10 +52,32 @@ namespace DEVinCar.Domain.Services
             DeliveryUpdate.Update(entity);
             _deliveryRepository.Update(DeliveryUpdate);
         }
-
-        public IList<Delivery> GetDelivery(int? addressId, int? saleId){
+        public IList<Delivery> GetDelivery(int? addressId, int? saleId)
+        {
 
             var query = _deliveryRepository.GetQuerable();
+
+            if (addressId.HasValue)
+            {
+                query = query.Where(a => a.AddressId == addressId);
+            }
+
+            if (saleId.HasValue)
+            {
+                query = query.Where(s => s.SaleId == saleId);
+            }
+
+            if (!query.ToList().Any())
+            {
+                throw new NotFoundException($"The Delivery with addressId:{addressId} end addressId: {saleId} not found.");
+            }
+            return query.ToList();
+        }
+
+
+        public IList<Delivery> GetDelivery(int? addressId, int? saleId, Pagination page){
+
+            var query = _deliveryRepository.GetQuerable(page);
 
             if (addressId.HasValue)
             {
