@@ -1,5 +1,6 @@
 using DEVinCar.Api.Configs;
 using DEVinCar.Di.IOC;
+using DEVinCar.Domain.Services;
 using DEVinCar.Infra.Data.Context;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -14,7 +15,11 @@ builder.Services.AddControllers();
 RepositoryIOC.RegisterServices(builder.Services);
 ValidatorsIOC.RegisterServices(builder.Services);
 AuthenticationIOC.RegisterServices(builder.Services);
+
 builder.Services.AddMemoryCache();
+builder.Services.AddScoped(typeof(CacheService<>));
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<DevInCarDbContext>();
 builder.Services.AddApiVersioning(options =>

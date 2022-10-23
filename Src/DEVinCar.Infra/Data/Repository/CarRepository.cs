@@ -1,8 +1,6 @@
-
 using DEVinCar.Domain.Interfaces.IRepositories;
 using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Infra.Data.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace DEVinCar.Infra.Data.Repository
 {

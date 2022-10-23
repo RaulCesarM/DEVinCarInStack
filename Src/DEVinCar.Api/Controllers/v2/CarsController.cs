@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using DEVinCar.Domain.Entities.Enuns;
 using DEVinCar.Domain.Validations.Security;
 using AutoMapper;
-
+using Newtonsoft.Json;
 
 namespace DEVinCar.Api.Controllers.v2;
 
@@ -27,21 +27,6 @@ public class CarController : ControllerBase
         _carService = carService;
     }
 
-    [HttpGet("{carId}")]
-    [AllowAnonymous]
-    public ActionResult<CarDTO> GetById([FromRoute] int carId)
-    {
-        try
-        {
-            return Ok(_mapper.Map<CarDTO>(_carService.GetCarById(carId)));
-
-        }
-        catch
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError);
-        }
-    }
-
     [HttpGet]
     [AllowAnonymous]
     public ActionResult<List<CarDTO>> Get([FromQuery] string name, [FromQuery] decimal? priceMin, [FromQuery] decimal? priceMax, int skip = 0, int take = 5)
@@ -51,6 +36,12 @@ public class CarController : ControllerBase
             var page = new Pagination(take, skip);
             var Total = _carService.GetTotal();
             Response.Headers.Add("X-Paginacao-TotalRegistros", Total.ToString());
+
+            Response.Cookies.Append("Coockie", JsonConvert.SerializeObject(page));// cria coockie
+
+
+
+
             var car = _carService.GetGeralViewCarPage(name, priceMin, priceMax, page);
             return Ok(car);
 
@@ -60,6 +51,23 @@ public class CarController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
+
+    [HttpGet("{carId}")]
+    [AllowAnonymous]
+    public ActionResult<CarDTO> GetById([FromRoute] int carId)
+    {
+        try
+        {
+           var coock = Request.Cookies["Coockie"]; ///use coockie
+            return Ok(_mapper.Map<CarDTO>(_carService.GetCarById(carId)));
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+    }
+
 
     [HttpPost]
     [PermissaoAuthorize(Permission.Administrador)]
