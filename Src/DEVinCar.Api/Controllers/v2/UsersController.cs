@@ -30,21 +30,42 @@ public class UserController : ControllerBase
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<List<User>> Get([FromQuery] string Name, [FromQuery] DateTime? birthDateMax, [FromQuery] DateTime? birthDateMin)
     {
-        var query = _userService.GetQueriableUser(Name, birthDateMax, birthDateMin);
-        return Ok(query.ToList());
+        try
+        {
+            var query = _userService.GetQueriableUser(Name, birthDateMax, birthDateMin);
+            return Ok(query.ToList());
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+
+
+        
     }
 
     [HttpGet("{id}")]
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<User> GetById([FromRoute] int id)
     {
-        User user;
-        if(!_cache.TryGetValue<User>($"user: {id}", out user)){
-         user = _userService.GetUserById(id);
-         _cache.Set<User>($"user: {id}", user, new TimeSpan(0,0,40));
-        if (user == null) return NotFound();
+        try
+        {
+            User user;
+            if (!_cache.TryGetValue<User>($"user: {id}", out user))
+            {
+                user = _userService.GetUserById(id);
+                _cache.Set<User>($"user: {id}", user, new TimeSpan(0, 0, 40));
+                if (user == null) return NotFound();
+            }
+            return Ok(user);
+
         }
-        return Ok(user);
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+       
         
     }
 
@@ -52,55 +73,107 @@ public class UserController : ControllerBase
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Sale> GetByIdbuy([FromRoute] int userId)
     {
-        var sales = _saleService.GetReationBuyOnUser(userId);
-        if (sales == null || sales.Count() == 0)
+        try
         {
-            return NoContent();
+            var sales = _saleService.GetReationBuyOnUser(userId);
+            if (sales == null || sales.Count() == 0)
+            {
+                return NoContent();
+            }
+            return Ok(sales.ToList());
+
         }
-        return Ok(sales.ToList());
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+       
     }
 
     [HttpGet("{userId}/sales")]
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Sale> GetSalesBySellerId([FromRoute] int userId)
     {
-        var sales = _saleService.GetReationBuyOnUser(userId);
-        return Ok(sales.ToList());
+        try
+        {
+            var sales = _saleService.GetReationBuyOnUser(userId);
+            return Ok(sales.ToList());
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+       
     }
 
     [HttpPost]
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<User> Post([FromBody] UserDTO userDto)
     {
-        var newUser = _userService.GetUserByDTO(userDto);
-        return Created("api/users", newUser);
+        try
+        {
+            var newUser = _userService.GetUserByDTO(userDto);
+            return Created("api/users", newUser);
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+        
+      
     }
 
     [HttpPut ("{userId}/user") ]
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<User> Update([FromBody] UserDTO userDto,[FromRoute] int userId )
     {
-        _cache.Remove($"user:{userId}");
-        var usermodels = _userService.GetById(userId);
-        userDto.Name = usermodels.Name;
-        var user = _userService.UpdateByEntity(userDto);
-        return Created("api/users", user);
+        try
+        {
+            _cache.Remove($"user:{userId}");
+            var usermodels = _userService.GetById(userId);
+            userDto.Name = usermodels.Name;
+            var user = _userService.UpdateByEntity(userDto);
+            return Created("api/users", user);
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+       
     }
 
     [HttpPost("{userId}/sales")]
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Sale> PostSaleUserId([FromRoute] int userId, [FromBody] SaleDTO body)
     {
-        var sale = _saleService.PostSaleUserId(userId, body);
-        return Created("api/sale", sale.Id);
+        try
+        {
+            var sale = _saleService.PostSaleUserId(userId, body);
+            return Created("api/sale", sale.Id);
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+        
     }
 
     [HttpPost("{userId}/buy")]
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<Sale> PostBuyUserId([FromRoute] int userId, [FromBody] BuyDTO body)
     {
-        var buy = _saleService.PostBuyUserId(userId, body);
-        return Created("api/user/{userId}/buy", buy.Id);
+        try
+        {
+            var buy = _saleService.PostBuyUserId(userId, body);
+            return Created("api/user/{userId}/buy", buy.Id);
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+       
     }
 
 

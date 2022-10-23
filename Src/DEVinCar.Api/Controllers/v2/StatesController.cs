@@ -27,8 +27,18 @@ public class StatesController : ControllerBase
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<int> PostCity([FromRoute] int stateId, [FromBody] CityDTO cityDTO)
     {
-        var Id = _stateService.PostCity(stateId, cityDTO);
-        return Created("api/{stateId}/city", Id);
+        try
+        {
+            var Id = _stateService.PostCity(stateId, cityDTO);
+            return Created("api/{stateId}/city", Id);
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+
+       
     }
 
 
@@ -37,8 +47,18 @@ public class StatesController : ControllerBase
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<int> PostAdress([FromRoute] int stateId, [FromRoute] int cityId, [FromBody] AddressDTO body)
     {
-        var address = _addressService.PostAdress(stateId, cityId, body);
-        return Created($"api/state/{stateId}/city/{cityId}/", address);
+        try
+        {
+            var address = _addressService.PostAdress(stateId, cityId, body);
+            return Created($"api/state/{stateId}/city/{cityId}/", address);
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+        
+        
     }
 
 
@@ -47,17 +67,38 @@ public class StatesController : ControllerBase
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<GetCityByIdViewModel> GetCityById([FromRoute] int stateId, [FromRoute] int cityId)
     {
-        var CityById = _addressService.GetCityById(stateId, cityId);
-        return Ok(CityById);
+        try
+        {
+            var CityById = _addressService.GetCityById(stateId, cityId);
+            return Ok(CityById);
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+        
+       
     }
 
     [HttpGet("{stateId}")]
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<GetStateByIdViewModel> GetStateById([FromRoute] int stateId)
     {
-        var filterState = _stateService.GetById(stateId);
-        var response = new GetStateByIdViewModel(filterState.Id, filterState.Name, filterState.Initials);
-        return Ok(response);
+
+        try
+        {
+
+            var filterState = _stateService.GetById(stateId);
+            var response = new GetStateByIdViewModel(filterState.Id, filterState.Name, filterState.Initials);
+            return Ok(response);
+
+        }
+        catch
+        {
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+
     }
 
     [HttpGet]
@@ -71,7 +112,8 @@ public class StatesController : ControllerBase
         }
         catch
         {
-            return NoContent();
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -79,8 +121,17 @@ public class StatesController : ControllerBase
     [PermissaoAuthorize(Permission.Gerente, Permission.Diretor)]
     public ActionResult<GetCityByIdViewModel> GetCityByStateId([FromRoute] int stateId, [FromQuery] string name)
     {
-        var queryResponse = _addressService.GetCityByStateId(stateId, name);
-        return Ok(queryResponse);
+        try
+        {
+            var queryResponse = _addressService.GetCityByStateId(stateId, name);
+            return Ok(queryResponse);
+        }
+        catch
+        {
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
+        }
+        
     }
 
 }

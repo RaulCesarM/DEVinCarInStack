@@ -23,8 +23,17 @@ namespace DEVinCar.Api.Controllers.v2
         [AllowAnonymous]
         public ActionResult<Delivery> Get([FromQuery] int? addressId,[FromQuery] int? saleId)
         {
-            var query = _deliveryService.GetDelivery(addressId, saleId);
-            return Ok(query.ToList());       
+            try
+            {
+                var query = _deliveryService.GetDelivery(addressId, saleId);
+                return Ok(query.ToList());
+
+            }
+            catch
+            {
+                return StatusCode(StatusCodes.Status400BadRequest);
+            }
+                 
         }
     }
 }
