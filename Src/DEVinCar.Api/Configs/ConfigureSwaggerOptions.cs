@@ -2,9 +2,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-
 namespace DEVinCar.Api.Configs
 {
 public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
@@ -27,14 +24,14 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 
             var info = new OpenApiInfo
             {
-                Title = "DEV IN HOUSE V2",
+                Title = "DEV IN CAR  V2",
 
             };
 
             if (description.IsDeprecated)
             {
 
-                info.Title = " DEV IN HOUSE V1 ";
+                info.Title = " DEV IN CAR V1 ";
                 info.Description += " This API version has been deprecated.";
             }
 
