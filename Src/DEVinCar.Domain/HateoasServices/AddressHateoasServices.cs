@@ -1,12 +1,12 @@
 
 using DEVinCar.Domain.Entities.DTOs;
-using DEVinCar.Domain.Interfaces.IBases;
+using DEVinCar.Domain.Interfaces.IHateoas;
 
 namespace DEVinCar.Domain.HateoasServices
 {
 
     //
-    public class AddressHateoasServices : IHateoasServices<AddressDTO>
+    public class AddressHateoasServices :IAdddressHateoasServices
     {
         public List<HateoasDTO> GetHateoas(AddressDTO entity, string baseURI, int id)
         {

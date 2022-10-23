@@ -1,9 +1,10 @@
 
 using DEVinCar.Domain.Entities.DTOs;
-using DEVinCar.Domain.Interfaces.IBases;
+using DEVinCar.Domain.Interfaces.IHateoas;
+
 namespace DEVinCar.Domain.HateoasServices
 {
-    public class StateHateoasServices: IHateoasServices<StateDTO>
+    public class StateHateoasServices: IStateHateoasServices
     {
         public List<HateoasDTO> GetHateoas(StateDTO entity, string baseURI, int id)
         {

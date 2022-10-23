@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 
 RepositoryIOC.RegisterServices(builder.Services);
 ValidatorsIOC.RegisterServices(builder.Services);
+HateoasIOC.RegisterServices(builder.Services);
 AuthenticationIOC.RegisterServices(builder.Services);
 
 builder.Services.AddMemoryCache();

@@ -8,6 +8,7 @@ using DEVinCar.Domain.Validations.Security;
 using AutoMapper;
 using Newtonsoft.Json;
 
+
 namespace DEVinCar.Api.Controllers.v2;
 
 
@@ -19,6 +20,8 @@ public class CarController : ControllerBase
 {
 
     private readonly ICarService _carService;
+
+
     private readonly IMapper _mapper;
 
     public CarController(ICarService carService, IMapper mapper)
@@ -132,35 +135,35 @@ public class CarController : ControllerBase
 
     }
 
-    private List<HateoasDTO> GetHateoas(int Id, string UriBase)
-    {
-        return new List<HateoasDTO>()
-        {
-            new HateoasDTO(){
-                Rel = "self",
-                Type = "GET",
-                URI = $"{UriBase}/API/v2/car/{Id}"
+    // private List<HateoasDTO> GetHateoas(int Id, string UriBase)
+    // {
+    //     return new List<HateoasDTO>()
+    //     {
+    //         new HateoasDTO(){
+    //             Rel = "self",
+    //             Type = "GET",
+    //             URI = $"{UriBase}/API/v2/car/{Id}"
 
-            },
-            new HateoasDTO(){
-                Rel = "self",
-                Type = "POST",
-                URI =  $"{UriBase}/API/v2/car/{Id}"
+    //         },
+    //         new HateoasDTO(){
+    //             Rel = "self",
+    //             Type = "POST",
+    //             URI =  $"{UriBase}/API/v2/car/{Id}"
 
-            },
-            new HateoasDTO(){
-                Rel = "self",
-                Type = "PUT",
-                URI =  $"{UriBase}/API/v2/car/{Id}"
+    //         },
+    //         new HateoasDTO(){
+    //             Rel = "self",
+    //             Type = "PUT",
+    //             URI =  $"{UriBase}/API/v2/car/{Id}"
 
-            },
-            new HateoasDTO(){
-                Rel = "self",
-                Type = "DELETE",
-                URI =  $"{UriBase}/API/v2/car/{Id}"
+    //         },
+    //         new HateoasDTO(){
+    //             Rel = "self",
+    //             Type = "DELETE",
+    //             URI =  $"{UriBase}/API/v2/car/{Id}"
 
-            }
+    //         }
 
-        };
-    }
+    //     };
+    // }
 }
