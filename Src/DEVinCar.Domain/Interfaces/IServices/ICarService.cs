@@ -10,7 +10,7 @@ namespace DEVinCar.Domain.Interfaces.IServices
        string name,
         decimal? priceMin,
         decimal? priceMax);
-        public IList<Car> GetGeralViewCarPage(
+        public IList<CarDTO> GetGeralViewCarPage(
         string name,
          decimal? priceMin,
          decimal? priceMax,

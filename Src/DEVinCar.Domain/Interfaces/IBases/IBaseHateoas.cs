@@ -5,7 +5,7 @@ namespace DEVinCar.Domain.Interfaces.IBases
 {
     public interface IBaseHateoas<TEntity> where TEntity : class
     {
-        public List<HateoasDTO> GetHateoas(TEntity entity, string baseURI, int id);
-        public List<HateoasDTO> GetHateoasForAll(TEntity entity, string baseURI, int take, int skip, int ultimo);
+        public List<HateoasDTO> GetHateoas(TEntity entity, string baseURI);
+        public List<HateoasDTO> GetHateoasForAll( string baseURI, int take, int skip, int ultimo);
     }
 }

@@ -23,7 +23,8 @@ public class CarController : ControllerBase
     }
 
     [HttpGet("{carId}")]
-    [PermissaoAuthorize(Permission.Gerente)]
+    [AllowAnonymous]
+   // [PermissaoAuthorize(Permission.Gerente)]
     public ActionResult<Car> GetById([FromRoute] int carId)
     {
         

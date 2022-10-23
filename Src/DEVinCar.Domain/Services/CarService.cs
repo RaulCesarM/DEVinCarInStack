@@ -81,7 +81,7 @@ namespace DEVinCar.Domain.Services
 
 
 
-        public IList<Car> GetGeralViewCarPage(string name,
+        public IList<CarDTO> GetGeralViewCarPage(string name,
                                         decimal? priceMin,
                                         decimal? priceMax,
                                         Pagination page)
@@ -107,9 +107,9 @@ namespace DEVinCar.Domain.Services
             {
                 throw new IncorrectInputMessageException($"The input incorrect.");
             } 
-            List<Car> carViewList = new List<Car>();
+            List<CarDTO> carViewList = new List<CarDTO>();
             query.ToList().ForEach(car =>{
-                carViewList.Add(new Car(car));
+                carViewList.Add(new CarDTO(car));
             });
             return carViewList;
         }

@@ -7,7 +7,7 @@ using DEVinCar.Domain.Entities.Enuns;
 using DEVinCar.Domain.Validations.Security;
 using AutoMapper;
 using Newtonsoft.Json;
-
+using DEVinCar.Domain.Interfaces.IHateoas;
 
 namespace DEVinCar.Api.Controllers.v2;
 
@@ -20,12 +20,12 @@ public class CarController : ControllerBase
 {
 
     private readonly ICarService _carService;
-
+    private readonly ICarHateoasServices _hateoas;
 
     private readonly IMapper _mapper;
 
-    public CarController(ICarService carService, IMapper mapper)
-    {
+    public CarController(ICarService carService, IMapper mapper, ICarHateoasServices hateoas)
+    {   _hateoas = hateoas; 
         _mapper = mapper;
         _carService = carService;
     }
@@ -38,15 +38,20 @@ public class CarController : ControllerBase
         {
             var page = new Pagination(take, skip);
             var Total = _carService.GetTotal();
+            var uri = $"{Request.Scheme}://{Request.Host}";
             Response.Headers.Add("X-Paginacao-TotalRegistros", Total.ToString());
-
             Response.Cookies.Append("Coockie", JsonConvert.SerializeObject(page));// cria coockie
+            var cars = new BaseDTO<IList<CarDTO>>(){
+                Data = _carService.GetGeralViewCarPage(name, priceMin, priceMax, page),
+                Links = _hateoas.GetHateoasForAll(uri, take, skip, Total)
+            };
+            foreach (var car in cars.Data)
+            {
+                car.Links = _hateoas.GetHateoas(car, uri);
+            }
 
-
-
-
-            var car = _carService.GetGeralViewCarPage(name, priceMin, priceMax, page);
-            return Ok(car);
+           
+            return Ok(cars);
 
         }
         catch
@@ -64,7 +69,7 @@ public class CarController : ControllerBase
            var coock = Request.Cookies["Coockie"]; ///use coockie
            var uri = $"{Request.Scheme}://{Request.Host}";
            var car = _mapper.Map<CarDTO>(_carService.GetCarById(carId));
-           car.Links = GetHateoas(carId,uri);
+           car.Links = _hateoas.GetHateoas(car,uri );                
            
             return Ok(car);
 

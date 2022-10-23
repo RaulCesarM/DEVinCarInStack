@@ -8,28 +8,28 @@ namespace DEVinCar.Domain.HateoasServices
     //
     public class AddressHateoasServices :IAdddressHateoasServices
     {
-        public List<HateoasDTO> GetHateoas(AddressDTO entity, string baseURI, int id)
+        public List<HateoasDTO> GetHateoas(AddressDTO entity, string baseURI)
         {
             var hateoas = new List<HateoasDTO>() {
                 new HateoasDTO(){
                     Rel = "self",
                     Type = "GET",
-                    URI = $"{baseURI}/api/{entity}/{id}"
+                    URI = $"{baseURI}/api/Address/{entity.Id}"
                 },
                 new HateoasDTO(){
                     Rel = "self",
                     Type = "PUT",
-                    URI = $"{baseURI}/api/{entity}/{id}"
+                    URI = $"{baseURI}/api/Address/{entity.Id}"
                 },
                 new HateoasDTO(){
                     Rel = "self",
                     Type = "DELETE",
-                    URI = $"{baseURI}/api/{entity}/{id}"
+                    URI = $"{baseURI}/api/Address/{entity.Id}"
                 },
                 new HateoasDTO(){
                     Rel = "self",
                     Type = "POST",
-                     URI = $"{baseURI}/api/{entity}/{id}"
+                     URI = $"{baseURI}/api/Address/{entity.Id}"
                 }
             };
 
@@ -38,19 +38,19 @@ namespace DEVinCar.Domain.HateoasServices
         }
 
 
-        public List<HateoasDTO> GetHateoasForAll(AddressDTO entity, string baseURI, int take, int skip, int ultimo)
+        public List<HateoasDTO> GetHateoasForAll( string baseURI, int take, int skip, int ultimo)
         {
             var hateoas = new List<HateoasDTO>() {
                 new HateoasDTO(){
                     Rel = "self",
                     Type = "GET",
-                    URI = $"{baseURI}/api/{entity}?skip={skip}&take={take}"
+                    URI = $"{baseURI}/api/Address?skip={skip}&take={take}"
                 },
 
                 new HateoasDTO(){
                     Rel = "self",
                     Type = "POST",
-                    URI = $"{baseURI}/api/{entity}/"
+                    URI = $"{baseURI}/api/Address/"
                 }
             };
             var razao = take - skip;
@@ -64,7 +64,7 @@ namespace DEVinCar.Domain.HateoasServices
                 {
                     Rel = "Prev",
                     Type = "GET",
-                    URI = $"{baseURI}/api/{entity}?skip={newSkip}&take={take - razao}"
+                    URI = $"{baseURI}/api/Address?skip={newSkip}&take={take - razao}"
                 });
             }
 
@@ -75,7 +75,7 @@ namespace DEVinCar.Domain.HateoasServices
                 {
                     Rel = "Next",
                     Type = "GET",
-                    URI = $"{baseURI}/api/{entity}?skip={skip + razao}&take={take + razao}"
+                    URI = $"{baseURI}/api/Address?skip={skip + razao}&take={take + razao}"
                 });
             }
 
