@@ -9,8 +9,7 @@ namespace DEVinCar.Api.Controllers.v1
 {
   
     [ApiController]
-    [Route("API/v{version:apiVersion}/deliver")]
-    [Route("api/deliver")]
+    [Route("API/v{version:apiVersion}/deliver")]    
     [ApiVersion("1", Deprecated = true)]
     [Authorize]
     public class DeliverController : ControllerBase

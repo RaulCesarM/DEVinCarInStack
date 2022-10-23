@@ -7,8 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DEVinCar.Api.Controllers.v2
 {
-    [Route("API/v{version:apiVersion}/autentication")]
-    [Route("api/autentication")]
+    [ApiController]
+    [Route("API/v{version:apiVersion}/autentication")]   
     [ApiVersion("2", Deprecated = false)]
     public class AutenticationController : ControllerBase
     {

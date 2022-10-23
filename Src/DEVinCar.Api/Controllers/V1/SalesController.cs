@@ -15,7 +15,6 @@ namespace DEVinCar.Api.Controllers.v1
 
     [ApiController]
     [Route("API/v{version:apiVersion}/sales")]
-    [Route("api/sales")]
     [ApiVersion("1", Deprecated = true)]
     [Authorize]
     public class SalesController : ControllerBase

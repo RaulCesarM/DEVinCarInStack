@@ -10,7 +10,6 @@ namespace DEVinCar.Api.Controllers.v2;
 
 [ApiController]
 [Route("API/v{version:apiVersion}/state")]
-[Route("api/state")]
 [ApiVersion("2", Deprecated = false)]
 [Authorize]
 public class StatesController : ControllerBase

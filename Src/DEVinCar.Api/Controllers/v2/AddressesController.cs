@@ -10,7 +10,6 @@ namespace DEVinCar.Api.Controllers.v2;
 
 [ApiController]
 [Route("API/v{version:apiVersion}/address")]
-[Route("api/address")]
 [ApiVersion("2", Deprecated = false)]
 public class AddressesController : ControllerBase
 {

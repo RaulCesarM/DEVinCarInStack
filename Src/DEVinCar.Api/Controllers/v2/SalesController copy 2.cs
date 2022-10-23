@@ -11,11 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DEVinCar.Api.Controllers.v2
 {
-
-
     [ApiController]
-    [Route("API/v{version:apiVersion}/sales")]
-    [Route("api/sales")]
+    [Route("API/v{version:apiVersion}/sales")]   
     [ApiVersion("2", Deprecated = false)]
     [Authorize]
     public class SalesController : ControllerBase

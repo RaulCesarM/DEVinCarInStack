@@ -11,7 +11,6 @@ namespace DEVinCar.Api.Controllers.v2;
 
 [ApiController]
 [Route("API/v{version:apiVersion}/user")]
-[Route("api/user")]
 [ApiVersion("2", Deprecated = false)]
 [Authorize]
 public class UserController : ControllerBase
