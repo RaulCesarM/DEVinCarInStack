@@ -1,8 +1,6 @@
-
 using DEVinCar.Domain.Interfaces.IRepositories;
 using DEVinCar.Domain.Entities.Models;
 using DEVinCar.Infra.Data.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace DEVinCar.Infra.Data.Repository
 {
@@ -21,9 +19,14 @@ namespace DEVinCar.Infra.Data.Repository
 
 
 
-        public IQueryable<Car> GetGeralViewCar()
+        public IQueryable<Car> GetGeralViewCar(Pagination pagination)
         {
-            return _context.Set<Car>().AsQueryable();
+            return _context.Set<Car>()
+                            .Take(pagination.Take)
+                            .Skip(pagination.Skip)
+                            .AsQueryable();
         }
+
+       
     }
 }

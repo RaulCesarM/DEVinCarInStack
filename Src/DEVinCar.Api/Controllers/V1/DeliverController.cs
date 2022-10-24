@@ -5,10 +5,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace DEVinCar.Api.Controllers
+namespace DEVinCar.Api.Controllers.v1
 {
+  
     [ApiController]
-    [Route("deliver")]
+    [Route("API/v{version:apiVersion}/deliver")]    
+    [ApiVersion("1", Deprecated = true)]
+    [Authorize]
     public class DeliverController : ControllerBase
     {
         private readonly IDeliveryService _deliveryService;

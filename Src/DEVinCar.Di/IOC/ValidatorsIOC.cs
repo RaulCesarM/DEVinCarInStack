@@ -16,14 +16,14 @@ namespace DEVinCar.Di.IOC
         {
             builder.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();         
            
-            builder.AddTransient<IValidator<Address>, AddressValidators>();
-            builder.AddTransient<IValidator<BuyDTO>, BuyDTOValidators>();
-            builder.AddTransient<IValidator<CarDTO>, CarDTOValidators>();
-            builder.AddTransient<IValidator<Car>,        CarValidators>();
-            builder.AddTransient<IValidator<CityDTO>, CityDTOValidators>();
-            builder.AddTransient<IValidator<SaleDTO>, SaleDTOValiadtors>();
-            builder.AddTransient<IValidator<StateDTO>, StateDTOValidators>();
-            builder.AddTransient<IValidator<UserDTO>, UserDTOValidators>();
+            builder.AddScoped<IValidator<Address>, AddressValidators>();
+            builder.AddScoped<IValidator<BuyDTO>, BuyDTOValidators>();
+            builder.AddScoped<IValidator<CarDTO>, CarDTOValidators>();
+            builder.AddScoped<IValidator<Car>,        CarValidators>();
+            builder.AddScoped<IValidator<CityDTO>, CityDTOValidators>();
+            builder.AddScoped<IValidator<SaleDTO>, SaleDTOValiadtors>();
+            builder.AddScoped<IValidator<StateDTO>, StateDTOValidators>();
+            builder.AddScoped<IValidator<UserDTO>, UserDTOValidators>();
         }
     }
 }

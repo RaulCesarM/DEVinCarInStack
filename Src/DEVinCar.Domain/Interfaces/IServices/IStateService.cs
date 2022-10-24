@@ -1,6 +1,6 @@
 
 using DEVinCar.Domain.Entities.DTOs;
-using DEVinCar.Domain.Entities.Models;
+
 using DEVinCar.Domain.Entities.ViewModels;
 using DEVinCar.Domain.Interfaces.IBases;
 

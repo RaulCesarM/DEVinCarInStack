@@ -7,9 +7,14 @@ namespace DEVinCar.Domain.Interfaces.IServices
     public interface ICarService: IBaseService<CarDTO, int>
     {
         public IList<Car> GetGeralViewCar(
+       string name,
+        decimal? priceMin,
+        decimal? priceMax);
+        public IList<CarDTO> GetGeralViewCarPage(
         string name,
          decimal? priceMin,
-         decimal? priceMax);
+         decimal? priceMax,
+         Pagination page);
 
         public Car GetCarById(int id);
 

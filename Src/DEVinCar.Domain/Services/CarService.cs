@@ -55,6 +55,9 @@ namespace DEVinCar.Domain.Services
         public void Remove(int id)
         {
            var CarRemove = _carRepository.GetById(id);
+           if(CarRemove == null){
+                throw new IncorrectInputMessageException($"The incorrect value object id.");
+           }
             _carRepository.Remove(CarRemove);
         }
 
@@ -63,17 +66,27 @@ namespace DEVinCar.Domain.Services
         public void Update(CarDTO entity, int id)
         {
             var CarUpdate = _carRepository.GetById(id);
+
+            if (CarUpdate == null)
+                throw new IncorrectInputMessageException($"The incorrect value object id.");
+            if (entity.Name.Equals(null) || entity.SuggestedPrice.Equals(null))
+                throw new IncorrectInputMessageException($"Error in name or Price");
+            if (entity.SuggestedPrice <= 0)
+                throw new IncorrectInputMessageException($" Price not accept");
+
+
             CarUpdate.Update(entity);
             _carRepository.Update(CarUpdate);
         }
 
 
 
-        public IList<Car> GetGeralViewCar(string name,
+        public IList<CarDTO> GetGeralViewCarPage(string name,
                                         decimal? priceMin,
-                                        decimal? priceMax)
+                                        decimal? priceMax,
+                                        Pagination page)
         {
-            var query = _carRepository.GetGeralViewCar();
+            var query = _carRepository.GetGeralViewCar(page);
             if (!string.IsNullOrEmpty(name))
             {
                 query = query.Where(c => c.Name.Contains(name));
@@ -94,9 +107,9 @@ namespace DEVinCar.Domain.Services
             {
                 throw new IncorrectInputMessageException($"The input incorrect.");
             } 
-            List<Car> carViewList = new List<Car>();
+            List<CarDTO> carViewList = new List<CarDTO>();
             query.ToList().ForEach(car =>{
-                carViewList.Add(new Car(car));
+                carViewList.Add(new CarDTO(car));
             });
             return carViewList;
         }
@@ -106,6 +119,9 @@ namespace DEVinCar.Domain.Services
             return new CarDTO(_carRepository.GetById(id));
         }
 
-        
+        public IList<Car> GetGeralViewCar(string name, decimal? priceMin, decimal? priceMax)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

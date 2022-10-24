@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using DEVinCar.Domain.Entities.Enuns;
 using DEVinCar.Domain.Validations.Security;
 
-namespace DEVinCar.Api.Controllers;
+namespace DEVinCar.Api.Controllers.v1;
 
 [ApiController]
-[Route("api/car")]
+[Route("API/v{version:apiVersion}/car")]
+[ApiVersion("1", Deprecated = true)]
 [Authorize]
-
 public class CarController : ControllerBase
 {
    
@@ -23,7 +23,8 @@ public class CarController : ControllerBase
     }
 
     [HttpGet("{carId}")]
-    [PermissaoAuthorize(Permission.Gerente)]
+    [AllowAnonymous]
+   // [PermissaoAuthorize(Permission.Gerente)]
     public ActionResult<Car> GetById([FromRoute] int carId)
     {
         
@@ -35,13 +36,13 @@ public class CarController : ControllerBase
     [HttpGet]
     [Authorize(Roles ="Gerente")] 
     public ActionResult<List<Car>> Get([FromQuery] string name, [FromQuery] decimal? priceMin,[FromQuery] decimal? priceMax)
-    {
-        var car= _carService.GetGeralViewCar(name,priceMin,priceMax );
+    {   
+        var car= _carService.GetGeralViewCar(name,priceMin,priceMax);
         return Ok(car);
     }
 
     [HttpPost]
-    [PermissaoAuthorize(Permission.Gerente)]
+    [AllowAnonymous]
     public ActionResult<Car> Post([FromBody] CarDTO body)
     {
 

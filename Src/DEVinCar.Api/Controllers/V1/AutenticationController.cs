@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DEVinCar.Api.Controllers
+namespace DEVinCar.Api.Controllers.v1
 {
+    [Route("API/v{version:apiVersion}/autentication")]    
+    [ApiVersion("1", Deprecated = true)]
     public class AutenticationController : ControllerBase
     {
         private readonly IUserService _userService;

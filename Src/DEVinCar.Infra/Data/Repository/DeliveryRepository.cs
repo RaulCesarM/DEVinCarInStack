@@ -26,5 +26,13 @@ namespace DEVinCar.Infra.Data.Repository
         {
             return _context.Set<Delivery>().AsQueryable();
         }
+
+        public IQueryable<Delivery> GetQuerable(Pagination pagination)
+        {
+            return _context.Set<Delivery>()
+                           .Take(pagination.Take)
+                           .Skip(pagination.Skip)
+                           .AsQueryable();
+        }
     }
 }

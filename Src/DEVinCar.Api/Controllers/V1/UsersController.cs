@@ -7,13 +7,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace DEVinCar.Api.Controllers;
+namespace DEVinCar.Api.Controllers.v1;
 
 [ApiController]
-[Route("user")]
-//[Authorize(Roles = "Gerente")]
-
-
+[Route("API/v{version:apiVersion}/user")]
+[ApiVersion("1", Deprecated = true)]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
